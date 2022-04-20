@@ -1,0 +1,212 @@
+{
+	"info": {
+		"_postman_id": "41e0fcc0-7f7a-4a72-a692-880316847cdc",
+		"name": "DummyRest_API_Testing",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Get all employee data",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseURLdummyapi}}/api/v1/employees",
+					"host": [
+						"{{baseURLdummyapi}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"employees"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get a single employee data",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseURLdummyapi}}/api/v1/employee/1",
+					"host": [
+						"{{baseURLdummyapi}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"employee",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create new record in database",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"//Assertion1\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"//Assertion2 :Key-Value Check\r",
+							"pm.test(\"Key-Value Check\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    //Name\r",
+							"    pm.expect(jsonData.data.name).to.eql(\"Oapl\");\r",
+							"    //Salary\r",
+							"    pm.expect(jsonData.data.salary).to.eql(\"10000\");\r",
+							"    //Age\r",
+							"    pm.expect(jsonData.data.age).to.eql(\"30\");\r",
+							"});\r",
+							"\r",
+							"//set EmployeeID as an environment variable\r",
+							"pm.test(\"Set EmployeeID as an environment variable\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"\r",
+							"    pm.environment.set(\"EmployeeID\", jsonData.data.id);\r",
+							"});\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"Oapl\",\r\n    \"salary\": \"10000\",\r\n    \"age\": \"30\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURLdummyapi}}/api/v1/create",
+					"host": [
+						"{{baseURLdummyapi}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"create"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update an employee record in dummyapi",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"//Assertion1\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"//Assertion2: Response Key-Value Check\r",
+							"pm.test(\"Check Key-Value pairs in the response \", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"   //Name\r",
+							"    pm.expect(jsonData.data.name).to.eql(\"Oapl\");\r",
+							"    //Salary\r",
+							"   pm.expect(jsonData.data.salary).to.eql(\"35000\"); \r",
+							"   //Age\r",
+							"   pm.expect(jsonData.data.age).to.eql(\"50\");     \r",
+							"  \r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"Oapl\",\r\n    \"salary\": \"35000\",\r\n    \"age\": \"50\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURLdummyapi}}/api/v1/update/{{EmployeeID}}",
+					"host": [
+						"{{baseURLdummyapi}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"update",
+						"{{EmployeeID}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete an employee record",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{baseURLdummyapi}}/api/v1/delete/2/",
+					"host": [
+						"{{baseURLdummyapi}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"delete",
+						"2",
+						""
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

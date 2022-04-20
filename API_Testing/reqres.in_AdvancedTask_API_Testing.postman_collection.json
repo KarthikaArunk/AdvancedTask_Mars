@@ -1,0 +1,191 @@
+{
+	"info": {
+		"_postman_id": "5cc34b80-a6a7-4f83-9b6e-8d8a2fc556c6",
+		"name": "reqres.in_AdvancedTask_API_Testing",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "GET all users data",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseURL}}/api/users",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"api",
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get single user data",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseURL}}/api/users/6",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"api",
+						"users",
+						"6"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create new user",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"//Assertion1\r",
+							"pm.test(\"Status code is 201\", function () {\r",
+							"    pm.response.to.have.status(201);\r",
+							"});\r",
+							"//Assertion2: Response-Value Check\r",
+							"pm.test(\"Check Key-Value pairs in the response\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"  //Check name\r",
+							"    pm.expect(jsonData.name).to.eql(\"karth\");\r",
+							"  //Check Job\r",
+							"     pm.expect(jsonData.job).to.eql(\"testing\");\r",
+							"\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"karth\",\r\n    \"job\": \"testing\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}/api/users",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"api",
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update user data",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"//Assertion\r",
+							"\r",
+							"pm.test(\"Check Key-Value pairs in the response\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"  //Check name\r",
+							"    pm.expect(jsonData.name).to.eql(\"karth\");\r",
+							"  //Check Job\r",
+							"     pm.expect(jsonData.job).to.eql(\"testing_analyst\");\r",
+							"\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"karth\",\r\n    \"job\": \"testing_analyst\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}/api/api/{{EmployeeID}}",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"api",
+						"api",
+						"{{EmployeeID}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete User Data",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "https://reqres.in/api/users/2",
+					"protocol": "https",
+					"host": [
+						"reqres",
+						"in"
+					],
+					"path": [
+						"api",
+						"users",
+						"2"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

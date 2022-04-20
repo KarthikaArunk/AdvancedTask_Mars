@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace MarsAdvancedTask.Pages
@@ -15,7 +16,6 @@ namespace MarsAdvancedTask.Pages
         public SkillProfile()
         {
             PageFactory.InitElements(Global.GlobalDefinitions.driver, this);
-            //GlobalDefinitions.ExcelLib.PopulateInCollection(Base.ExcelPath, "Skill");
         }
 
         //Click on Skills Tab
@@ -38,23 +38,31 @@ namespace MarsAdvancedTask.Pages
         [FindsBy(How = How.XPath, Using = "//*[@id='account-profile-section']/div/section[2]/div/div/div/div[3]/form/div[3]/div/div[2]/div/div/span/input[1]")]
         private IWebElement AddSkillBtn { get; set; }
 
+        //Get Skill from Table
+        [FindsBy(How = How.XPath, Using = "//*[@id='account-profile-section']/div/section[2]/div/div/div/div[3]/form/div[3]/div/div[2]/div/table/tbody/tr/td[1]")]
+        private IWebElement SkillFromTable { get; set; }
+
+        //Get SkillLevel 
+        [FindsBy(How = How.XPath, Using = "//*[@id='account-profile-section']/div/section[2]/div/div/div/div[3]/form/div[3]/div/div[2]/div/table/tbody/tr/td[2]")]
+        private IWebElement SkillLevelFromTable { get; set; }
+
         internal void NewSkill(int excelrow)
         {
             //Populate the Excel Sheet
             GlobalDefinitions.ExcelLib.PopulateInCollection(Base.ExcelPath, "Skill");
 
             //Click on  Skill Tab
-            var wait = new WebDriverWait(Global.GlobalDefinitions.driver, TimeSpan.FromSeconds(10));
-            wait.Until(ExpectedConditions.ElementToBeClickable(SkillsTab));
+            Thread.Sleep(1000);
             SkillsTab.Click();
+            Thread.Sleep(1000);
 
             //Click on Add New button on Skill tab 
-            wait.Until(ExpectedConditions.ElementToBeClickable(AddNewSkillBtn));
             AddNewSkillBtn.Click();
 
             var waitskill = new WebDriverWait(Global.GlobalDefinitions.driver, TimeSpan.FromSeconds(10));
             waitskill.Until(ExpectedConditions.ElementToBeClickable(SkillTxtBox));
 
+            Thread.Sleep(1000);
             //Enter new skill
             var newskilldatafromexcel = GlobalDefinitions.ExcelLib.ReadData(excelrow, "Skill");
             SkillTxtBox.SendKeys(newskilldatafromexcel);
@@ -66,7 +74,18 @@ namespace MarsAdvancedTask.Pages
             //Click on Add button on skill tab
 
             AddSkillBtn.Click();
+        }
 
+        public string GetSkill()
+        {
+            Thread.Sleep(1000);
+            return SkillFromTable.Text;
+        }
+
+        public string GetSkillLevel()
+        {
+            Thread.Sleep(1000);
+            return SkillLevelFromTable.Text;
         }
 
     }

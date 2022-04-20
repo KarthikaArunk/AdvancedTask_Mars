@@ -3,11 +3,11 @@ using OpenQA.Selenium;
 using OpenQA.Selenium.Support.PageObjects;
 using OpenQA.Selenium.Support.UI;
 using System;
-
+using System.Threading;
 
 namespace MarsAdvancedTask.Pages
 {
-    internal class CertificationProfile
+    public class CertificationProfile
     {
         public CertificationProfile()
         {
@@ -39,7 +39,20 @@ namespace MarsAdvancedTask.Pages
         [FindsBy(How = How.XPath, Using = "//*[@id='account-profile-section']/div/section[2]/div/div/div/div[3]/form/div[5]/div[1]/div[2]/div/div/div[3]/input[1]")]
         private IWebElement AddCertificationBtn { get; set; }
 
-        internal void NewCertification()
+        //Get Certificate from table
+        [FindsBy(How = How.XPath, Using = "//*[@id='account-profile-section']/div/section[2]/div/div/div/div[3]/form/div[5]/div[1]/div[2]/div/table/tbody/tr/td[1]")]
+        private IWebElement CertificateFromTable { get; set; }
+
+        //Get CertifiedFrom table
+        [FindsBy(How = How.XPath, Using = "//*[@id='account-profile-section']/div/section[2]/div/div/div/div[3]/form/div[5]/div[1]/div[2]/div/table/tbody/tr/td[2]")]
+        private IWebElement CertifiedFromTable { get; set; }
+
+        //Get CertificateYear  from table
+        [FindsBy(How = How.XPath, Using = "//*[@id='account-profile-section']/div/section[2]/div/div/div/div[3]/form/div[5]/div[1]/div[2]/div/table/tbody/tr/td[3]")]
+        private IWebElement CertificateYearFromTable { get; set; }
+
+        
+        public void NewCertification()
         {
 
             //Populate the Excel Sheet
@@ -67,5 +80,22 @@ namespace MarsAdvancedTask.Pages
             AddCertificationBtn.Click();
         }
 
+        public string GetCertificate()
+        {
+          Thread.Sleep(1000);
+          return CertificateFromTable.Text;
+        }
+
+        public string GetCertifiedFrom()
+        {
+            Thread.Sleep(1000);
+            return CertifiedFromTable.Text;
+        }
+
+        public string CertificateYear()
+        {
+            Thread.Sleep(1000);
+            return CertificateYearFromTable.Text;
+        }
     }
 }

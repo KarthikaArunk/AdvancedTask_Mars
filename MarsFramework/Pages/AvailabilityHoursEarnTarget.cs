@@ -1,4 +1,4 @@
-﻿using MarsAdvancedTask.Global;
+﻿
 using OpenQA.Selenium;
 using OpenQA.Selenium.Support.PageObjects;
 using OpenQA.Selenium.Support.UI;
@@ -22,26 +22,23 @@ namespace MarsAdvancedTask.Pages
         [FindsBy(How = How.XPath, Using = "//*[@id='account-profile-section']/div/section[2]/div/div/div/div[2]/div/div/div/div/div/div[3]/div/div[2]/div/span/select")]
         private IWebElement AvailabilityDropdown { get; set; }
 
-        ////Select  Availability Option
-        //[FindsBy(How = How.XPath, Using = "//*[@id='account-profile-section']/div/section[2]/div/div/div/div[2]/div/div/div/div/div/div[3]/div/div[2]/div/span/select/option[]")]
-        //private IWebElement AvailabilityOption { get; set; }
+        //Select  Availability Option
+        [FindsBy(How = How.XPath, Using = "//*[@id='account-profile-section']/div/section[2]/div/div/div/div[2]/div/div/div/div/div/div[3]/div/div[2]/div/span/select/option[2]")]
+        private IWebElement AvailabilityOption { get; set; }
 
         //Click on  HoursIcon 
         [FindsBy(How = How.XPath, Using = "//*[@id='account-profile-section']/div/section[2]/div/div/div/div[2]/div/div/div/div/div/div[3]/div/div[3]/div/span/i")]
         private IWebElement HoursIcon { get; set; }
 
-        //Click on  Hours Dropdownbox
-
-        //[FindsBy(How = How.Name, Using = "availabiltyHour")]
-
+        
         [FindsBy(How = How.XPath, Using = "//*[@id='account-profile-section']/div/section[2]/div/div/div/div[2]/div/div/div/div/div/div[3]/div/div[3]/div/span/select")]
 
-        //[FindsBy(How = How.XPath, Using = "/html/body/div[1]/div/section[2]/div/div/div/div[2]/div/div/div/div/div/div[3]/div/div[3]/div/span/select")]
+        ////[FindsBy(How = How.XPath, Using = "/html/body/div[1]/div/section[2]/div/div/div/div[2]/div/div/div/div/div/div[3]/div/div[3]/div/span/select")]
         private IWebElement HoursDropdown { get; set; }
 
-        ////Select  Hours Option
-        //[FindsBy(How = How.XPath, Using = "//*[@id='account-profile-section']/div/section[2]/div/div/div/div[2]/div/div/div/div/div/div[3]/div/div[3]/div/span/select/option[]")]
-        //private IWebElement HoursOption { get; set; }
+        //Select  Hours Option
+        [FindsBy(How = How.XPath, Using = "//*[@id='account-profile-section']/div/section[2]/div/div/div/div[2]/div/div/div/div/div/div[3]/div/div[3]/div/span/select/option[3]")]
+        private IWebElement HoursOption { get; set; }
 
         //Click on  EarnTarget Icon 
         [FindsBy(How = How.XPath, Using = "//*[@id='account-profile-section']/div/section[2]/div/div/div/div[2]/div/div/div/div/div/div[3]/div/div[4]/div/span/i")]
@@ -51,86 +48,83 @@ namespace MarsAdvancedTask.Pages
         [FindsBy(How = How.XPath, Using = "//*[@id='account-profile-section']/div/section[2]/div/div/div/div[2]/div/div/div/div/div/div[3]/div/div[4]/div/span/select")]
         private IWebElement EarnTargetDropdown { get; set; }
 
-        ////Select  EarnTarget Option
-        //[FindsBy(How = How.XPath, Using = "//*[@id='account-profile-section']/div/section[2]/div/div/div/div[2]/div/div/div/div/div/div[3]/div/div[4]/div/span/select/option[]")]
-        //private IWebElement EarnTargetOption { get; set; }
+        //Select  EarnTarget Option
+        [FindsBy(How = How.XPath, Using = "//*[@id='account-profile-section']/div/section[2]/div/div/div/div[2]/div/div/div/div/div/div[3]/div/div[4]/div/span/select/option[3]")]
+        private IWebElement EarnTargetOption { get; set; }
 
-        //Click on Availability update message
-        ////[FindsBy(How = How.XPath, Using = "/html/body/div[1]/a")]
-        //[FindsBy(How = How.XPath, Using = "//*[@class='ns-box-inner']")]
+        //Get  New Availability 
+        [FindsBy(How = How.XPath, Using = "//*[@id='account-profile-section']/div/section[2]/div/div/div/div[2]/div/div/div/div/div/div[3]/div/div[2]/div/span")]
+        private IWebElement GetNewAvailability { get; set; }
 
-        //private IWebElement AvailabilityUpdateMessage { get; set; }
+        //Get  New Hours
+        [FindsBy(How = How.XPath, Using = "//*[@id='account-profile-section']/div/section[2]/div/div/div/div[2]/div/div/div/div/div/div[3]/div/div[3]/div/span")]
+        private IWebElement GetNewHours { get; set; }
+
+        //Get  New EarnTarget
+        [FindsBy(How = How.XPath, Using = "//*[@id='account-profile-section']/div/section[2]/div/div/div/div[2]/div/div/div/div/div/div[3]/div/div[4]/div/span")]
+        private IWebElement GetNewEarnTarget { get; set; }
 
 
-        internal void Availability_Hours_Target()
-        {
-            //Populate the Excel Sheet
-            GlobalDefinitions.ExcelLib.PopulateInCollection(Base.ExcelPath, "AvailabilityHoursEarnTarget");
 
+        internal void Availability_Status()
+        {            
             //Click on  AvailabilityIcon
+
+            Thread.Sleep(5000);
             var wait = new WebDriverWait(Global.GlobalDefinitions.driver, TimeSpan.FromSeconds(10));
             wait.Until(ExpectedConditions.ElementToBeClickable(AvailabilityIcon));
             AvailabilityIcon.Click();
 
             //Select  AvailabilityDropdown
-            var waitavaildropdown = new WebDriverWait(Global.GlobalDefinitions.driver, TimeSpan.FromSeconds(10));
-            waitavaildropdown.Until(ExpectedConditions.ElementToBeClickable(AvailabilityDropdown));
+            Thread.Sleep(2000);
             AvailabilityDropdown.Click();
-            //AvailabilityDropdown.Clear();
+            AvailabilityOption.Click();
 
-            var availabilitydatafromexcel = GlobalDefinitions.ExcelLib.ReadData(2, "Availability");
-            AvailabilityDropdown.SendKeys(availabilitydatafromexcel);
+            Thread.Sleep(4000);
+        }
 
+        internal void Hours_Status()
+        {
+            //Click on HoursIcon
+            Thread.Sleep(4000);
+            HoursIcon.Click();
+            Thread.Sleep(3000);
 
-            Thread.Sleep(1000);
-            //var closebutton = GlobalDefinitions.driver.FindElement(By.XPath("/html/body/div[1]/a"));
-            //closebutton.Click(); 
+            HoursDropdown.Click();
 
+            Thread.Sleep(2000);
+            HoursOption.Click();
+        }
 
-            //AvailabilityUpdateMessage.Click();
-
-            ////Select Availability
-            //var waitavailoption = new WebDriverWait(Global.GlobalDefinitions.driver, TimeSpan.FromSeconds(10));
-            //waitavailoption.Until(ExpectedConditions.ElementToBeClickable(AvailabilityOption));
-
-            //var availabilitydatafromexcel = GlobalDefinitions.ExcelLib.ReadData(excelrow, "Availability");
-            //AvailabilityOption.SendKeys(availabilitydatafromexcel);
-
-            //Click on  HoursIcon
-            //Select HoursDropdown
-            //var waithoursdropdown = new WebDriverWait(Global.GlobalDefinitions.driver, TimeSpan.FromSeconds(10));
-            //waithoursdropdown.Until(ExpectedConditions.ElementToBeClickable(HoursDropdown));
-            ////Thread.Sleep(2000);
-            //HoursDropdown.Click();
-
-
-            ////Select Hours
-            //var hoursdatafromexcel = GlobalDefinitions.ExcelLib.ReadData(excelrow, "Hours");
-            //HoursOption.SendKeys(hoursdatafromexcel);
-
+        internal void EarnTaregt_Status()
+        {         
             //Click on  EarnTarget Icon
-            var waitearntarget = new WebDriverWait(Global.GlobalDefinitions.driver, TimeSpan.FromSeconds(10));
-            waitearntarget.Until(ExpectedConditions.ElementToBeClickable(EarnTargetIcon));
+            Thread.Sleep(2000);
             EarnTargetIcon.Click();
 
-            //Select  EarnTargetDropdown
-            var waitearntargetdropdown = new WebDriverWait(Global.GlobalDefinitions.driver, TimeSpan.FromSeconds(10));
-            waitearntargetdropdown.Until(ExpectedConditions.ElementToBeClickable(EarnTargetDropdown));
+            Thread.Sleep(2000);
             EarnTargetDropdown.Click();
 
-            var earntargetfromexcel = GlobalDefinitions.ExcelLib.ReadData(2, "Earn Target");
-            EarnTargetDropdown.SendKeys(earntargetfromexcel);
+            Thread.Sleep(2000);
+            EarnTargetOption.Click();                      
+        }
 
-            var waithours = new WebDriverWait(Global.GlobalDefinitions.driver, TimeSpan.FromSeconds(60));
-            waithours.Until(ExpectedConditions.ElementToBeClickable(HoursIcon));
-            HoursIcon.Click();
-            //Thread.Sleep(3000);
-            const string xpath = "/html/body/div[1]/div/section[2]/div/div/div/div[2]/div/div/div/div/div/div[3]/div/div[3]/div/span/select";
-            //GlobalDefinitions.WaitForElement(GlobalDefinitions.driver, By.XPath(xpath), 30000);
-            var dropdown = GlobalDefinitions.driver.FindElement(By.XPath(xpath));
-            var hoursdatafromexcel = GlobalDefinitions.ExcelLib.ReadData(2, "Hours");
-            //HoursDropdown.SendKeys(hoursdatafromexcel);
-            dropdown.SendKeys(hoursdatafromexcel);
+        public string GetNewAvailabiltyData()
+        {
+            Thread.Sleep(2000);
+            return GetNewAvailability.Text;
+        }
+
+        public string GetNewHoursData()
+        {
+            Thread.Sleep(2000);
+            return GetNewHours.Text;
+        }
+
+        public string GetNewEarnTargetData()
+        {
+            Thread.Sleep(2000);
+            return GetNewEarnTarget.Text;
         }
     }
 }   

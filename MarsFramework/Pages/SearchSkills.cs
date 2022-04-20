@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace MarsAdvancedTask.Pages
@@ -19,14 +20,13 @@ namespace MarsAdvancedTask.Pages
         }
 
         //Find Search Skill Textbox
-        //[FindsBy(How = How.XPath, Using = "//*[@id='account-profile-section']/div/div[1]/div[1]/input")]
-
+        
         [FindsBy(How = How.XPath, Using = "//*[@id='service-search-section']/div[2]/div/section/div/div[1]/div[2]/input")]
 
         private IWebElement Skilltxtbox { get; set; }
 
         //[FindsBy(How = How.XPath, Using = "//*[@id='service-search-section']/div[1]/div[1]/i")]
-        
+
         //Click on Search Icon
         [FindsBy(How = How.XPath, Using = "//*[@id='account-profile-section']/div/div[1]/div[1]/i")]
         private IWebElement SearchIcon { get; set; }
@@ -34,11 +34,6 @@ namespace MarsAdvancedTask.Pages
         //Click Search Icon on Skill page
         [FindsBy(How = How.XPath, Using = "//*[@id='service-search-section']/div[3]/div/section/div/div[1]/div[2]/i")]
         private IWebElement SearchSkillIcon { get; set; }
-
-        ////Select All Categories
-
-        //[FindsBy(How = How.XPath, Using = "//*[@id='service-search-section']/div[3]/div/section/div/div[1]/div[1]/div/a[1]")]
-        //private IWebElement SearchAllCategories { get; set; }
 
         //Select Sub Categories
 
@@ -55,62 +50,59 @@ namespace MarsAdvancedTask.Pages
 
         [FindsBy(How = How.XPath, Using = "//*[@id='service-search-section']/div[2]/div/section/div/div[1]/div[5]/button[1]")]
         private IWebElement SearchFilterOnline { get; set; }
-        internal void SearchSkillsBy_AllCategories()
+
+        //Click on skill 
+        [FindsBy(How = How.LinkText, Using = "Web designing")]
+        private IWebElement ClickOnSkill { get; set; }
+
+        public void SearchSkillsBy_AllCategories()
         {
             //Populate the Excel Sheet
             GlobalDefinitions.ExcelLib.PopulateInCollection(Base.ExcelPath, "SearchSkill");
-
-            //var waitsearchicon = new WebDriverWait(Global.GlobalDefinitions.driver, TimeSpan.FromSeconds(10));
-            //waitsearchicon.Until(ExpectedConditions.ElementToBeClickable(SearchIcon));
-            //SearchIcon.Click();
-
-            
-            ////Skilltxtbox.Click();
-
-            
-
 
             var waitsearchicon = new WebDriverWait(Global.GlobalDefinitions.driver, TimeSpan.FromSeconds(15));
             waitsearchicon.Until(ExpectedConditions.ElementToBeClickable(SearchIcon));
 
             SearchIcon.Click();
+        }          
 
-            var waitsearchsubcategories = new WebDriverWait(Global.GlobalDefinitions.driver, TimeSpan.FromSeconds(15));
-            waitsearchsubcategories.Until(ExpectedConditions.ElementToBeClickable(SearchSubCategories));
+      
+        public void SearchBy_Filter()
+        {
+            Thread.Sleep(3000);
+            var waitsearchfilter = new WebDriverWait(Global.GlobalDefinitions.driver, TimeSpan.FromSeconds(20));
+            waitsearchfilter.Until(ExpectedConditions.ElementToBeClickable(SearchFilterOnline));
 
-            SearchSubCategories.Click();
+            SearchFilterOnline.Click();
+            SearchFilterOnline.SendKeys("\n");
 
-            var waitsearchqacategories = new WebDriverWait(Global.GlobalDefinitions.driver, TimeSpan.FromSeconds(15));
-            waitsearchqacategories.Until(ExpectedConditions.ElementToBeClickable(SearchQACategories));
+            Thread.Sleep(1000);
+        }
 
-            SearchQACategories.Click();
+        public void SearchBy_Skill()
+        {
+
+            Thread.Sleep(3000);
 
             var wait = new WebDriverWait(Global.GlobalDefinitions.driver, TimeSpan.FromSeconds(15));
             wait.Until(ExpectedConditions.ElementToBeClickable(Skilltxtbox));
 
-            var waitsearchskillicon = new WebDriverWait(Global.GlobalDefinitions.driver, TimeSpan.FromSeconds(20));
-            waitsearchskillicon.Until(ExpectedConditions.ElementToBeClickable(SearchSkillIcon));
-            SearchSkillIcon.Click();
+            Thread.Sleep(3000);
 
             var searchskill = GlobalDefinitions.ExcelLib.ReadData(2, "SkillToSearch");
             Skilltxtbox.SendKeys(searchskill);
+            Skilltxtbox.SendKeys("\n");
             Skilltxtbox.Click();
 
-            //var waitsearchskillicon = new WebDriverWait(Global.GlobalDefinitions.driver, TimeSpan.FromSeconds(20));
-            //waitsearchskillicon.Until(ExpectedConditions.ElementToBeClickable(SearchSkillIcon));
-            SearchSkillIcon.Click();
-
-            //var waitsearchallcategories = new WebDriverWait(Global.GlobalDefinitions.driver, TimeSpan.FromSeconds(10));
-            //waitsearchallcategories.Until(ExpectedConditions.ElementToBeClickable(SearchAllCategories));
-
-            //SearchAllCategories.Click();
-
-
-            //var waitsearchfilter = new WebDriverWait(Global.GlobalDefinitions.driver, TimeSpan.FromSeconds(10));
-            //waitsearchfilter.Until(ExpectedConditions.ElementToBeClickable(SearchFilterOnline));
-
-            //SearchFilterOnline.Click();
-
+            Thread.Sleep(3000);
         }
+       public void SearchSkill_Assertion()
+         {
+            Thread.Sleep(3000);
+
+            var wait = new WebDriverWait(Global.GlobalDefinitions.driver, TimeSpan.FromSeconds(15));
+            wait.Until(ExpectedConditions.ElementToBeClickable(ClickOnSkill));
+            ClickOnSkill.Click();
+         }
     }
 }

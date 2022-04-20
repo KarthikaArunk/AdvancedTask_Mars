@@ -35,7 +35,8 @@ namespace MarsAdvancedTask.Specflow_AdvancedTask
         public virtual void FeatureSetup()
         {
             testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
-            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Specflow_AdvancedTask", "CertificationProfile", "A short summary of the feature", ProgrammingLanguage.CSharp, featureTags);
+            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Specflow_AdvancedTask", "CertificationProfile", "As a seller\r\n I would like to add certification \r\nSo Customers could see certific" +
+                    "ation  on profile page", ProgrammingLanguage.CSharp, featureTags);
             testRunner.OnFeatureStart(featureInfo);
         }
         
@@ -74,15 +75,15 @@ namespace MarsAdvancedTask.Specflow_AdvancedTask
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("[scenario name]")]
-        [NUnit.Framework.CategoryAttribute("tag1")]
-        public void ScenarioName()
+        [NUnit.Framework.DescriptionAttribute("06) Adding Certification details")]
+        [NUnit.Framework.CategoryAttribute("tag6")]
+        public void _06AddingCertificationDetails()
         {
             string[] tagsOfScenario = new string[] {
-                    "tag1"};
+                    "tag6"};
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("[scenario name]", null, tagsOfScenario, argumentsOfScenario, featureTags);
-#line 6
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("06) Adding Certification details", null, tagsOfScenario, argumentsOfScenario, featureTags);
+#line 8
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             if ((TagHelper.ContainsIgnoreTag(tagsOfScenario) || TagHelper.ContainsIgnoreTag(featureTags)))
@@ -92,14 +93,11 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 this.ScenarioStart();
-#line 7
- testRunner.Given("[context]", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line hidden
-#line 8
- testRunner.When("[action]", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line hidden
 #line 9
- testRunner.Then("[outcome]", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+ testRunner.When("[I add certification details]", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line hidden
+#line 10
+ testRunner.Then("[certification details should be saved]", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
             this.ScenarioCleanup();

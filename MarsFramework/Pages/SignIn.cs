@@ -2,8 +2,6 @@
 using OpenQA.Selenium.Support.PageObjects;
 using OpenQA.Selenium.Chrome;
 using MarsAdvancedTask.Global;
-using System;
-using OpenQA.Selenium.Support.UI;
 
 
 namespace MarsAdvancedTask.Pages

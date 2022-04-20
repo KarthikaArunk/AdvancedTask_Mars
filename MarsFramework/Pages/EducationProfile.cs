@@ -3,7 +3,7 @@ using OpenQA.Selenium;
 using OpenQA.Selenium.Support.PageObjects;
 using OpenQA.Selenium.Support.UI;
 using System;
-
+using System.Threading;
 
 namespace MarsAdvancedTask.Pages
 {
@@ -47,7 +47,28 @@ namespace MarsAdvancedTask.Pages
         [FindsBy(How = How.XPath, Using = "//*[@id='account-profile-section']/div/section[2]/div/div/div/div[3]/form/div[4]/div/div[2]/div/div/div[3]/div/input[1]")]
         private IWebElement AddEducationBtn { get; set; }
 
-        internal void EducationDeatils(int excelrow)
+        //Get Country
+        [FindsBy(How = How.XPath, Using = "//*[@id='account-profile-section']/div/section[2]/div/div/div/div[3]/form/div[4]/div/div[2]/div/table/tbody/tr/td[1]")]
+        private IWebElement GetCountry { get; set; }
+
+        //Get University
+        [FindsBy(How = How.XPath, Using = "//*[@id='account-profile-section']/div/section[2]/div/div/div/div[3]/form/div[4]/div/div[2]/div/table/tbody/tr/td[2]")]
+        private IWebElement GetUniversity { get; set; }
+
+        //Get Title
+        [FindsBy(How = How.XPath, Using = "//*[@id='account-profile-section']/div/section[2]/div/div/div/div[3]/form/div[4]/div/div[2]/div/table/tbody/tr/td[3]")]
+        private IWebElement GetTitle { get; set; }
+
+        //Get Degree
+        [FindsBy(How = How.XPath, Using = "//*[@id='account-profile-section']/div/section[2]/div/div/div/div[3]/form/div[4]/div/div[2]/div/table/tbody/tr/td[4]")]
+        private IWebElement GetDegree { get; set; }
+
+        //Get Year
+        [FindsBy(How = How.XPath, Using = "//*[@id='account-profile-section']/div/section[2]/div/div/div/div[3]/form/div[4]/div/div[2]/div/table/tbody/tr/td[5]")]
+        private IWebElement GetYear { get; set; }
+
+
+        public void EducationDetails()
         {
             //Populate the Excel Sheet
             GlobalDefinitions.ExcelLib.PopulateInCollection(Base.ExcelPath, "Education");
@@ -60,27 +81,57 @@ namespace MarsAdvancedTask.Pages
             AddNewEducationBtn.Click();
 
             //Enter University
-            var universitydatafromexcel = GlobalDefinitions.ExcelLib.ReadData(excelrow, "University");
+            Thread.Sleep(2000);
+            var universitydatafromexcel = GlobalDefinitions.ExcelLib.ReadData(2, "University");
             UniversityTxtBox.SendKeys(universitydatafromexcel);
 
             //Enter Country
-            var countrydatafromexcel = GlobalDefinitions.ExcelLib.ReadData(excelrow, "Country");
+            var countrydatafromexcel = GlobalDefinitions.ExcelLib.ReadData(2, "Country");
             Country.SendKeys(countrydatafromexcel);
 
             //Enter Title
-            var titledatafromexcel = GlobalDefinitions.ExcelLib.ReadData(excelrow, "Title");
+            var titledatafromexcel = GlobalDefinitions.ExcelLib.ReadData(2, "Title");
             Title.SendKeys(titledatafromexcel);
 
             //Enter Title
-            var degreedatafromexcel = GlobalDefinitions.ExcelLib.ReadData(excelrow, "Degree");
+            var degreedatafromexcel = GlobalDefinitions.ExcelLib.ReadData(2, "Degree");
             DegreeTxtBox.SendKeys(degreedatafromexcel);
 
             //Enter Graduation Year
-            var yeardatafromexcel = GlobalDefinitions.ExcelLib.ReadData(excelrow, "Year of Graduation");
+            var yeardatafromexcel = GlobalDefinitions.ExcelLib.ReadData(2, "Year of Graduation");
             GraduationYear.SendKeys(yeardatafromexcel);
 
             AddEducationBtn.Click();
         }
 
+        public string GetCountryData()
+        {
+            Thread.Sleep(2000);
+            return GetCountry.Text;
+        }
+
+        public string GetUniversityData()
+        {
+            Thread.Sleep(2000);
+            return GetUniversity.Text;
+        }
+
+        public string GetTitleData()
+        {
+            Thread.Sleep(2000);
+            return GetTitle.Text;
+        }
+
+        public string GetDegreeData()
+        {
+            Thread.Sleep(2000);
+            return GetDegree.Text;
+        }
+
+        public string GetYearData()
+        {
+            Thread.Sleep(2000);
+            return GetYear.Text;
+        }
     }
 }

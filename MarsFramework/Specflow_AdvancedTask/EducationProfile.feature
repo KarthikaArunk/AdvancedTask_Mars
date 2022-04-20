@@ -1,9 +1,10 @@
 ﻿Feature: EducationProfile
 
-A short summary of the feature
+As a seller
+ I would like to add education 
+So Customers could see education  on profile page
 
-@tag1
-Scenario: [scenario name]
-	Given [context]
-	When [action]
-	Then [outcome]
+@tag5
+Scenario: 05)  Adding Education Details
+	When   [I Add Education Details]
+	Then   [Education details should be saved]

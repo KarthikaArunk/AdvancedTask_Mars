@@ -3,11 +3,7 @@ using OpenQA.Selenium;
 using OpenQA.Selenium.Support.PageObjects;
 using OpenQA.Selenium.Support.UI;
 using System;
-using NUnit.Framework;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Threading;
 
 namespace MarsAdvancedTask.Pages
 {
@@ -39,7 +35,14 @@ namespace MarsAdvancedTask.Pages
         [FindsBy(How = How.XPath, Using = "//*[@id='account-profile-section']/div/section[2]/div/div/div/div[3]/form/div[2]/div/div[2]/div/div/div[3]/input[1]")]
         private IWebElement AddLanguageBtn { get; set; }
 
-        internal void NewLanguage(int excelrow)
+        //Get  Language from table
+        [FindsBy(How = How.XPath, Using = "//*[@id='account-profile-section']/div/section[2]/div/div/div/div[3]/form/div[2]/div/div[2]/div/table/tbody/tr/td[1]")]
+        private IWebElement LanguageFromTable { get; set; }
+
+        //Get  Language level from table
+        [FindsBy(How = How.XPath, Using = "//*[@id='account-profile-section']/div/section[2]/div/div/div/div[3]/form/div[2]/div/div[2]/div/table/tbody/tr/td[2]")]
+        private IWebElement LanguageLevelFromTable { get; set; }
+        public void NewLanguage(int excelrow)
         {
             //Populate the Excel Sheet
             GlobalDefinitions.ExcelLib.PopulateInCollection(Base.ExcelPath, "Languages");
@@ -72,5 +75,16 @@ namespace MarsAdvancedTask.Pages
 
         }
 
+        public string GetLanguage()
+        {
+            Thread.Sleep(1000);
+            return LanguageFromTable.Text;
         }
+
+        public string GetLanguageLevel()
+        {
+            Thread.Sleep(1000);
+            return LanguageLevelFromTable.Text;
+        }
+      }
     }

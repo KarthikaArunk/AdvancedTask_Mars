@@ -75,14 +75,14 @@ namespace MarsAdvancedTask.Specflow_AdvancedTask
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("1\tAdding description in profile")]
+        [NUnit.Framework.DescriptionAttribute("01) Adding description in profile")]
         [NUnit.Framework.CategoryAttribute("tag1")]
-        public void _1AddingDescriptionInProfile()
+        public void _01AddingDescriptionInProfile()
         {
             string[] tagsOfScenario = new string[] {
                     "tag1"};
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("1\tAdding description in profile", null, tagsOfScenario, argumentsOfScenario, featureTags);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("01) Adding description in profile", null, tagsOfScenario, argumentsOfScenario, featureTags);
 #line 9
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
@@ -94,12 +94,9 @@ this.ScenarioInitialize(scenarioInfo);
             {
                 this.ScenarioStart();
 #line 10
- testRunner.Given("[I logged into the Mars portal successfully]", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line hidden
-#line 11
  testRunner.When("[I add description]", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
-#line 12
+#line 11
  testRunner.Then("[Description details should be saved]", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }

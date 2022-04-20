@@ -136,16 +136,30 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="StepDefinitions_AdvancedTask\ZChangePasswordStepDefinitions.cs" />
+    <Compile Include="StepDefinitions_AdvancedTask\SearchSkillStepDefinitions.cs" />
+    <Compile Include="StepDefinitions_AdvancedTask\ChatStepDefinitions.cs" />
+    <Compile Include="StepDefinitions_AdvancedTask\ManageListingsStepDefinitions.cs" />
+    <Compile Include="StepDefinitions_AdvancedTask\NotificationsStepDefinitions.cs" />
+    <Compile Include="StepDefinitions_AdvancedTask\ShareSkillStepDefinitions.cs" />
+    <Compile Include="StepDefinitions_AdvancedTask\AvailabilityHoursEarnTargetStepDefinitions.cs" />
+    <Compile Include="StepDefinitions_AdvancedTask\EducationProfileStepDefinitions.cs" />
+    <Compile Include="StepDefinitions_AdvancedTask\CertificationProfileStepDefinitions.cs" />
     <Compile Include="Config\MarsResource.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>MarsResource.resx</DependentUpon>
     </Compile>
+    <Compile Include="Global\BeforeAfterScenario.cs" />
+    <Compile Include="StepDefinitions_AdvancedTask\SkillProfileStepDefinitions.cs" />
+    <Compile Include="StepDefinitions_AdvancedTask\LanguagesProfileStepDefinitions.cs" />
+    <Compile Include="StepDefinitions_AdvancedTask\ManageRequestsStepDefinitions.cs" />
+    <Compile Include="StepDefinitions_AdvancedTask\DescriptionProfileStepDefinitions.cs" />
     <Compile Include="Global\Base.cs" />
     <Compile Include="Global\GlobalDefinitions.cs" />
     <Compile Include="Pages\AvailabilityHoursEarnTarget.cs" />
     <Compile Include="Pages\CertificationProfile.cs" />
-    <Compile Include="Pages\ChangePassword.cs" />
+    <Compile Include="Pages\ZChangePassword.cs" />
     <Compile Include="Pages\Chat_Profile.cs" />
     <Compile Include="Pages\DescriptionProfile.cs" />
     <Compile Include="Pages\EducationProfile.cs" />
@@ -158,8 +172,7 @@
     <Compile Include="Pages\SignIn.cs" />
     <Compile Include="Pages\SignUp.cs" />
     <Compile Include="Pages\SkillProfile.cs" />
-    <Compile Include="StepDefinitions_AdvancedTask\Description_StepDefinition.cs" />
-    <Compile Include="Test\Program.cs" />
+    <Compile Include="Test\MarsAdvanced.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -175,10 +188,16 @@
     <None Include="app.config" />
     <None Include="Specflow_AdvancedTask\AvailabilityHoursEarnTarget.feature" />
     <None Include="Specflow_AdvancedTask\CertificationProfile.feature" />
+    <None Include="Specflow_AdvancedTask\ZChangePassword.feature" />
+    <None Include="Specflow_AdvancedTask\Chat.feature" />
     <None Include="Specflow_AdvancedTask\DescriptionProfile.feature" />
     <None Include="Specflow_AdvancedTask\EducationProfile.feature" />
     <None Include="Specflow_AdvancedTask\LanguagesProfile.feature" />
+    <None Include="Specflow_AdvancedTask\ManageListings.feature" />
     <None Include="Specflow_AdvancedTask\ManageRequests.feature" />
+    <None Include="Specflow_AdvancedTask\Notifications.feature" />
+    <None Include="Specflow_AdvancedTask\SearchSkill.feature" />
+    <None Include="Specflow_AdvancedTask\ShareSkill.feature" />
     <None Include="Specflow_AdvancedTask\SkillProfile.feature" />
     <None Include="packages.config" />
   </ItemGroup>

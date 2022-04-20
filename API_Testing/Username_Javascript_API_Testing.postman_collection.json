@@ -1,0 +1,58 @@
+{
+	"info": {
+		"_postman_id": "97a0ec3d-8901-4046-a38e-f28720a723ba",
+		"name": "Username_Javascript_API_Testing",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Get username using Javascript",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseURLUsername}}/r/javascript.json?utm_source=reddit&utm_medium=usertext&utm_name=javascript&utm_content=t1_drb3cdb",
+					"host": [
+						"{{baseURLUsername}}"
+					],
+					"path": [
+						"r",
+						"javascript.json"
+					],
+					"query": [
+						{
+							"key": "utm_source",
+							"value": "reddit"
+						},
+						{
+							"key": "utm_medium",
+							"value": "usertext"
+						},
+						{
+							"key": "utm_name",
+							"value": "javascript"
+						},
+						{
+							"key": "utm_content",
+							"value": "t1_drb3cdb"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

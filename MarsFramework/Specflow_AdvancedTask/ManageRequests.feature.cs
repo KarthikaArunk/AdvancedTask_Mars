@@ -35,7 +35,8 @@ namespace MarsAdvancedTask.Specflow_AdvancedTask
         public virtual void FeatureSetup()
         {
             testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
-            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Specflow_AdvancedTask", "ManageRequests", "A short summary of the feature", ProgrammingLanguage.CSharp, featureTags);
+            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Specflow_AdvancedTask", "ManageRequests", "As a seller\r\n when I click on ManageRequests on Home page \r\nthen I should be able" +
+                    " to see all sent and received requests", ProgrammingLanguage.CSharp, featureTags);
             testRunner.OnFeatureStart(featureInfo);
         }
         
@@ -74,15 +75,15 @@ namespace MarsAdvancedTask.Specflow_AdvancedTask
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("1  Managing Sent and Received Requests")]
-        [NUnit.Framework.CategoryAttribute("tag1")]
-        public void _1ManagingSentAndReceivedRequests()
+        [NUnit.Framework.DescriptionAttribute("10)  Managing Sent and Received Requests")]
+        [NUnit.Framework.CategoryAttribute("tag9")]
+        public void _10ManagingSentAndReceivedRequests()
         {
             string[] tagsOfScenario = new string[] {
-                    "tag1"};
+                    "tag9"};
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("1  Managing Sent and Received Requests", null, tagsOfScenario, argumentsOfScenario, featureTags);
-#line 6
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("10)  Managing Sent and Received Requests", null, tagsOfScenario, argumentsOfScenario, featureTags);
+#line 8
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             if ((TagHelper.ContainsIgnoreTag(tagsOfScenario) || TagHelper.ContainsIgnoreTag(featureTags)))
@@ -92,13 +93,10 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 this.ScenarioStart();
-#line 7
- testRunner.Given("[I logged in successfully]", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line hidden
-#line 8
+#line 9
  testRunner.When("[I click on Manage Requests]", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
-#line 9
+#line 10
  testRunner.Then("[I should be able to see received and sent requests]", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }

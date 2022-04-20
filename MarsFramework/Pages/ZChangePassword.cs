@@ -3,16 +3,14 @@ using OpenQA.Selenium;
 using OpenQA.Selenium.Support.PageObjects;
 using OpenQA.Selenium.Support.UI;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Threading;
+
 
 namespace MarsAdvancedTask.Pages
 {
-    internal class ChangePassword
+    internal class ZChangePassword
     {
-        public ChangePassword()
+        public ZChangePassword()
         {
             PageFactory.InitElements(Global.GlobalDefinitions.driver, this);
         }
@@ -28,19 +26,16 @@ namespace MarsAdvancedTask.Pages
 
         //Enter Current password
 
-        //[FindsBy(How = How.XPath, Using = "/html/body/div[2]/div/div[2]/form/div[1]/input")]
         [FindsBy(How = How.Name, Using = "oldPassword")]
         private IWebElement CurrentPasswordTxtBox { get; set; }
 
         //Enter New password
-        //[FindsBy(How = How.XPath, Using = "/html/body/div[2]/div/div[2]/form/div[2]/input")]
-
+       
         [FindsBy(How = How.Name, Using = "newPassword")]
         private IWebElement NewPasswordTxtBox { get; set; }
 
         //Confirm New password
-        //[FindsBy(How = How.XPath, Using = "/html/body/div[2]/div/div[2]/form/div[3]/input")]
-        
+                
         [FindsBy(How = How.Name, Using = "confirmPassword")]
         private IWebElement ConfirmPasswordTxtBox { get; set; }
 
@@ -48,9 +43,12 @@ namespace MarsAdvancedTask.Pages
 
         [FindsBy(How = How.XPath, Using = "/html/body/div[4]/div/div[2]/form/div[4]/button")]
 
-        //[FindsBy(How = How.LinkText, Using = "Save")]
-        //[FindsBy(How = How.XPath, Using = "//@a[contains(text(),'Save')]")]
-        private IWebElement SavePasswordBtn { get; set; }
+       private IWebElement SavePasswordBtn { get; set; }
+
+        //Click on SignOut button
+        
+        [FindsBy(How = How.LinkText, Using = "Sign Out")]
+        private IWebElement SignOutBtn { get; set; }
 
         internal void Change_Password()
         {
@@ -80,7 +78,10 @@ namespace MarsAdvancedTask.Pages
 
             SavePasswordBtn.Click();
 
-
+            Thread.Sleep(3000);
+            var waitsignout = new WebDriverWait(Global.GlobalDefinitions.driver, TimeSpan.FromSeconds(20));
+            waitsignout.Until(ExpectedConditions.ElementToBeClickable(SignOutBtn));
+            SignOutBtn.Click();
         }
     }
 }

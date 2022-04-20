@@ -57,10 +57,7 @@ namespace MarsAdvancedTask.Pages
         [FindsBy(How = How.Name, Using = "description")]
         private IWebElement Description { get; set; }
 
-        //Enter Message to seller
-        [FindsBy(How = How.XPath, Using = "//*[@id='service-detail-section']/div[2]/div/div[2]/div[2]/div[2]/div/div[2]/div/div[1]/textarea")]
-        private IWebElement MessageTxtBox { get; set; }
-
+        
         //Select Hours
 
         [FindsBy(How = How.XPath, Using = "//*[@id='service-detail-section']/div[2]/div/div[2]/div[2]/div[2]/div/div[2]/div/div[2]/div[1]/input")]
@@ -74,27 +71,20 @@ namespace MarsAdvancedTask.Pages
         [FindsBy(How = How.XPath, Using = "//*[@id='service-detail-section]/div[2]/div/div[2]/div[2]/div[2]/div/div[2]/div/div[3]")]
         private IWebElement RequestBtn { get; set; }
 
+        internal void ManageListings_Skill()
+        {
+            Thread.Sleep(2000);
+            var waitmanagelist = new WebDriverWait(Global.GlobalDefinitions.driver, TimeSpan.FromSeconds(10));
+            waitmanagelist.Until(ExpectedConditions.ElementToBeClickable(manageListingsLink));
 
-        //internal void ViewListing()
-        //{
-        //    //Populate the Excel Sheet
-        //    GlobalDefinitions.ExcelLib.PopulateInCollection(Base.ExcelPath, "ShareSkill");
+            manageListingsLink.Click();
+        }
 
-        //    var waitmanagelist = new WebDriverWait(Global.GlobalDefinitions.driver, TimeSpan.FromSeconds(10));
-        //    waitmanagelist.Until(ExpectedConditions.ElementToBeClickable(manageListingsLink));
-
-        //    manageListingsLink.Click();
-
-        //    var waitview = new WebDriverWait(Global.GlobalDefinitions.driver, TimeSpan.FromSeconds(5));
-        //    waitview.Until(ExpectedConditions.ElementToBeClickable(view));
-
-        //    view.Click();
-        //}
 
         internal void ViewListing()
         {
             //Populate the Excel Sheet
-            GlobalDefinitions.ExcelLib.PopulateInCollection(Base.ExcelPath, "RequestSkillTrade");
+            GlobalDefinitions.ExcelLib.PopulateInCollection(Base.ExcelPath, "ShareSkill");
 
             var waitmanagelist = new WebDriverWait(Global.GlobalDefinitions.driver, TimeSpan.FromSeconds(10));
             waitmanagelist.Until(ExpectedConditions.ElementToBeClickable(manageListingsLink));
@@ -105,36 +95,29 @@ namespace MarsAdvancedTask.Pages
             waitview.Until(ExpectedConditions.ElementToBeClickable(view));
 
             view.Click();
-
-            var messagetoseller = GlobalDefinitions.ExcelLib.ReadData(2, "Message To The Seller");
-            var hoursselected = GlobalDefinitions.ExcelLib.ReadData(2, "Hours");
-
-            MessageTxtBox.SendKeys(messagetoseller);
-            HoursBox.SendKeys(hoursselected);
-            var waitrequest = new WebDriverWait(Global.GlobalDefinitions.driver, TimeSpan.FromSeconds(10));
-            waitrequest.Until(ExpectedConditions.ElementToBeClickable(RequestBtn));
-            //RequestBtn.Enabled. = true;
-            RequestBtn.Click();
         }
 
-        internal void EditListing()
+        
+        internal string EditListing()
         {
+            Thread.Sleep(2000);
             //Populate the Excel Sheet
             GlobalDefinitions.ExcelLib.PopulateInCollection(Base.ExcelPath, "EditSkill");
 
             var waitmanagelistedit = new WebDriverWait(Global.GlobalDefinitions.driver, TimeSpan.FromSeconds(10));
             waitmanagelistedit.Until(ExpectedConditions.ElementToBeClickable(manageListingsLink));
-            
+
             manageListingsLink.Click();
 
-            var waitskilltoedit = new WebDriverWait(Global.GlobalDefinitions.driver, TimeSpan.FromSeconds(10));
+            Thread.Sleep(2000);
+            var waitskilltoedit = new WebDriverWait(Global.GlobalDefinitions.driver, TimeSpan.FromSeconds(25));
             waitskilltoedit.Until(ExpectedConditions.ElementToBeClickable(edit));
 
             //Get data to be edited from Excel sheet
             var skilltoedit = GlobalDefinitions.ExcelLib.ReadData(2, "Title");
             var editeddescriptionfromexcel = GlobalDefinitions.ExcelLib.ReadData(2, "EditedDescription");
             var editedcreditamountfromexcel = GlobalDefinitions.ExcelLib.ReadData(2, "EditedCreditAmount");
-                        
+
             IList<IWebElement> rows = ListingTable.FindElements(By.XPath("//tbody/tr"));
 
             for (int i = 1; i < rows.Count; i++)
@@ -144,8 +127,8 @@ namespace MarsAdvancedTask.Pages
                 if (ListingTable.FindElement(By.XPath($"//tr[{i}]/td[3]")).Text == skilltoedit)
                 {
                     var editbutton = row.FindElement(By.XPath($"//tr[{i}]//td[8]//button[2]"));
-                    editbutton.Click();   
-                    
+                    editbutton.Click();
+
                     //Enter the edited description
                     Description.Clear();
                     Description.SendKeys(editeddescriptionfromexcel);
@@ -158,25 +141,32 @@ namespace MarsAdvancedTask.Pages
                     break;
                 }
             }
-
-            //Assertion for Edit
-
-            Thread.Sleep(2000);
-            IList<IWebElement> editedrows = ListingTable.FindElements(By.XPath("//tbody/tr"));
-            var rowfound = false;
-            for (int i = 1; i < editedrows.Count; i++)
-            {
-                if (ListingTable.FindElement(By.XPath($"//tr[{i}]/td[4]")).Text == editeddescriptionfromexcel)
-                {
-                    rowfound = true;
-                    break;
-                }
-            }
-            Assert.IsTrue(rowfound, "${editeddescriptionfromexcel} edited successfully");                  
+            return editeddescriptionfromexcel;
         }
 
-        internal void DeleteListings()
+            public void Edit_Assertion(string descrip)
+            {
+
+                //Assertion for Edit
+
+                Thread.Sleep(2000);
+                IList<IWebElement> editedrows = ListingTable.FindElements(By.XPath("//tbody/tr"));
+                var rowfound = false;
+                for (int i = 1; i < editedrows.Count; i++)
+                {
+                    if (ListingTable.FindElement(By.XPath($"//tr[{i}]/td[4]")).Text == descrip)
+                    {
+                        rowfound = true;
+                        break;
+                    }
+                }
+                Assert.IsTrue(rowfound, $"{descrip} edited successfully");
+            }
+
+       //Delete Listing
+        public string DeleteListings()
         {
+            Thread.Sleep(2000);
             //Populate the Excel Sheet
             GlobalDefinitions.ExcelLib.PopulateInCollection(Base.ExcelPath, "DeleteSkill");
 
@@ -203,23 +193,28 @@ namespace MarsAdvancedTask.Pages
                     break;
                 }
             }
+            return skilltodeletefromexcel;
+        }
 
-            //Assertion for delete
+        //Assertion for delete
+        public void Delete_Assertion(string deletedata)
+         {
+              //Assertion for delete
 
-            Thread.Sleep(2000);
-            IList<IWebElement> updatedrows = ListingTable.FindElements(By.XPath("//tbody/tr"));
-            var rowfound = false;
-            for (int i = 1; i < updatedrows.Count; i++)
-            {
-                if (ListingTable.FindElement(By.XPath($"//tr[{i}]/td[3]")).Text == skilltodeletefromexcel)
+                Thread.Sleep(2000);
+                IList<IWebElement> updatedrows = ListingTable.FindElements(By.XPath("//tbody/tr"));
+                var rowfound = false;
+                for (int i = 1; i < updatedrows.Count; i++)
                 {
+                    if (ListingTable.FindElement(By.XPath($"//tr[{i}]/td[3]")).Text == deletedata)
+                    {
 
-                    rowfound = true;
-                    break;
+                        rowfound = true;
+                        break;
+                    }
                 }
-            }
-            Assert.IsFalse(rowfound, "${skilltodeletefromexcel} deleted successfully");
-        }         
-             
-    }
+                Assert.IsFalse(rowfound, "${deletedata} deleted successfully");
+        }
+    }       
 }
+

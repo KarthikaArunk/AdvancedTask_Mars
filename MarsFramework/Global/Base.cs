@@ -5,11 +5,12 @@ using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Firefox;
 using RelevantCodes.ExtentReports;
 using System;
+using TechTalk.SpecFlow;
 using static MarsAdvancedTask.Global.GlobalDefinitions;
 
 namespace MarsAdvancedTask.Global
 {
-    class Base
+    public class Base
     {
         #region To access Path from resource file
 
@@ -26,6 +27,7 @@ namespace MarsAdvancedTask.Global
 
         #region setup and tear down
         [SetUp]
+        
         public void Inititalize()
         {
 
@@ -64,6 +66,7 @@ namespace MarsAdvancedTask.Global
 
 
         [TearDown]
+        
         public void TearDown()
         {
             // Screenshot
