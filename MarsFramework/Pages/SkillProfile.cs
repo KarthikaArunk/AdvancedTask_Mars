@@ -3,11 +3,7 @@ using OpenQA.Selenium;
 using OpenQA.Selenium.Support.PageObjects;
 using OpenQA.Selenium.Support.UI;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
+
 
 namespace MarsAdvancedTask.Pages
 {
@@ -52,17 +48,21 @@ namespace MarsAdvancedTask.Pages
             GlobalDefinitions.ExcelLib.PopulateInCollection(Base.ExcelPath, "Skill");
 
             //Click on  Skill Tab
-            Thread.Sleep(1000);
+           
+            GlobalDefinitions.driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(20);
             SkillsTab.Click();
-            Thread.Sleep(1000);
+            GlobalDefinitions.driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);
+            
 
             //Click on Add New button on Skill tab 
             AddNewSkillBtn.Click();
 
+            GlobalDefinitions.driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);
             var waitskill = new WebDriverWait(Global.GlobalDefinitions.driver, TimeSpan.FromSeconds(10));
             waitskill.Until(ExpectedConditions.ElementToBeClickable(SkillTxtBox));
 
-            Thread.Sleep(1000);
+            //Thread.Sleep(1000);
+            GlobalDefinitions.driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);
             //Enter new skill
             var newskilldatafromexcel = GlobalDefinitions.ExcelLib.ReadData(excelrow, "Skill");
             SkillTxtBox.SendKeys(newskilldatafromexcel);
@@ -77,14 +77,14 @@ namespace MarsAdvancedTask.Pages
         }
 
         public string GetSkill()
-        {
-            Thread.Sleep(1000);
+        {            
+            GlobalDefinitions.driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);
             return SkillFromTable.Text;
         }
 
         public string GetSkillLevel()
         {
-            Thread.Sleep(1000);
+            GlobalDefinitions.driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);
             return SkillLevelFromTable.Text;
         }
 

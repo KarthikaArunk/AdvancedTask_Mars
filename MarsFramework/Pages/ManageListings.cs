@@ -58,22 +58,10 @@ namespace MarsAdvancedTask.Pages
         private IWebElement Description { get; set; }
 
         
-        //Select Hours
-
-        [FindsBy(How = How.XPath, Using = "//*[@id='service-detail-section']/div[2]/div/div[2]/div[2]/div[2]/div/div[2]/div/div[2]/div[1]/input")]
-        private IWebElement HoursBox { get; set; }
-
-
-        //Click on Request button
-        //[FindsBy(How = How.XPath, Using = "//*[@id='service-detail-section']/div[2]/div/div[2]/div[2]/div[2]/div/div[2]/div/div[3]/i")]
-        //private IWebElement RequestBtn { get; set; }
-
-        [FindsBy(How = How.XPath, Using = "//*[@id='service-detail-section]/div[2]/div/div[2]/div[2]/div[2]/div/div[2]/div/div[3]")]
-        private IWebElement RequestBtn { get; set; }
-
+                
         internal void ManageListings_Skill()
         {
-            Thread.Sleep(2000);
+            GlobalDefinitions.driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(20);
             var waitmanagelist = new WebDriverWait(Global.GlobalDefinitions.driver, TimeSpan.FromSeconds(10));
             waitmanagelist.Until(ExpectedConditions.ElementToBeClickable(manageListingsLink));
 
@@ -91,7 +79,7 @@ namespace MarsAdvancedTask.Pages
 
             manageListingsLink.Click();
 
-            var waitview = new WebDriverWait(Global.GlobalDefinitions.driver, TimeSpan.FromSeconds(5));
+            var waitview = new WebDriverWait(Global.GlobalDefinitions.driver, TimeSpan.FromSeconds(15));
             waitview.Until(ExpectedConditions.ElementToBeClickable(view));
 
             view.Click();
@@ -100,7 +88,8 @@ namespace MarsAdvancedTask.Pages
         
         internal string EditListing()
         {
-            Thread.Sleep(2000);
+            
+            GlobalDefinitions.driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(20);
             //Populate the Excel Sheet
             GlobalDefinitions.ExcelLib.PopulateInCollection(Base.ExcelPath, "EditSkill");
 
@@ -109,7 +98,8 @@ namespace MarsAdvancedTask.Pages
 
             manageListingsLink.Click();
 
-            Thread.Sleep(2000);
+            
+            GlobalDefinitions.driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(20);
             var waitskilltoedit = new WebDriverWait(Global.GlobalDefinitions.driver, TimeSpan.FromSeconds(25));
             waitskilltoedit.Until(ExpectedConditions.ElementToBeClickable(edit));
 
@@ -144,13 +134,14 @@ namespace MarsAdvancedTask.Pages
             return editeddescriptionfromexcel;
         }
 
-            public void Edit_Assertion(string descrip)
-            {
+        public void Edit_Assertion(string descrip)
+        {
 
                 //Assertion for Edit
 
                 Thread.Sleep(2000);
-                IList<IWebElement> editedrows = ListingTable.FindElements(By.XPath("//tbody/tr"));
+                GlobalDefinitions.driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(20);
+                 IList<IWebElement> editedrows = ListingTable.FindElements(By.XPath("//tbody/tr"));
                 var rowfound = false;
                 for (int i = 1; i < editedrows.Count; i++)
                 {
@@ -161,12 +152,13 @@ namespace MarsAdvancedTask.Pages
                     }
                 }
                 Assert.IsTrue(rowfound, $"{descrip} edited successfully");
-            }
+        }
 
        //Delete Listing
         public string DeleteListings()
         {
-            Thread.Sleep(2000);
+            
+            GlobalDefinitions.driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(20);
             //Populate the Excel Sheet
             GlobalDefinitions.ExcelLib.PopulateInCollection(Base.ExcelPath, "DeleteSkill");
 
@@ -198,22 +190,23 @@ namespace MarsAdvancedTask.Pages
 
         //Assertion for delete
         public void Delete_Assertion(string deletedata)
-         {
-              //Assertion for delete
+        {
+           //Assertion for delete
 
-                Thread.Sleep(2000);
-                IList<IWebElement> updatedrows = ListingTable.FindElements(By.XPath("//tbody/tr"));
-                var rowfound = false;
-                for (int i = 1; i < updatedrows.Count; i++)
-                {
-                    if (ListingTable.FindElement(By.XPath($"//tr[{i}]/td[3]")).Text == deletedata)
-                    {
+               
+           GlobalDefinitions.driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(20);
+           IList<IWebElement> updatedrows = ListingTable.FindElements(By.XPath("//tbody/tr"));
+           var rowfound = false;
+           for (int i = 1; i < updatedrows.Count; i++)
+           {
+               if (ListingTable.FindElement(By.XPath($"//tr[{i}]/td[3]")).Text == deletedata)
+               {
 
                         rowfound = true;
                         break;
-                    }
-                }
-                Assert.IsFalse(rowfound, "${deletedata} deleted successfully");
+               }
+           }
+             Assert.IsFalse(rowfound, "${deletedata} deleted successfully");
         }
     }       
 }

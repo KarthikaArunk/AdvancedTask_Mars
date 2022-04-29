@@ -1,6 +1,7 @@
 ﻿
 
 using MarsAdvancedTask.Global;
+using NUnit.Framework;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Support.PageObjects;
 using OpenQA.Selenium.Support.UI;
@@ -33,12 +34,12 @@ namespace MarsAdvancedTask.Pages
         private IWebElement GetDescriptionTxt { get; set; }
 
         //Add Description
-        public void Description_Add()
+        public string Description_Add()
         {
              //Populate the Excel Sheet
             GlobalDefinitions.ExcelLib.PopulateInCollection(Base.ExcelPath, "DescriptionProfile");
 
-            Thread.Sleep(2000);
+            GlobalDefinitions.driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(40);
 
             var waitdescriptionicon = new WebDriverWait(Global.GlobalDefinitions.driver, TimeSpan.FromSeconds(10));
             waitdescriptionicon.Until(ExpectedConditions.ElementToBeClickable(DescriptionWriteIcon));
@@ -54,11 +55,12 @@ namespace MarsAdvancedTask.Pages
             DescriptionTxtBox.SendKeys(description);
 
             DescriptionSaveBtn.Click();
+            return description;
         }
 
-        public string GetDescription()
+        public void GetDescription( string descrip)
         {
-            return GetDescriptionTxt.Text;
+            Assert.That(GetDescriptionTxt.Text == descrip, "Description doesn't match");
         }
     }
 }

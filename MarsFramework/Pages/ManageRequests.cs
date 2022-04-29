@@ -1,4 +1,5 @@
-﻿using NUnit.Framework;
+﻿using MarsAdvancedTask.Global;
+using NUnit.Framework;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Support.PageObjects;
 using OpenQA.Selenium.Support.UI;
@@ -47,25 +48,26 @@ namespace MarsAdvancedTask.Pages
 
         public void ReceivedRequests()
         {
-            Thread.Sleep(4000);
+            GlobalDefinitions.driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(40);
             var waitmanagerequestreceived = new WebDriverWait(Global.GlobalDefinitions.driver, TimeSpan.FromSeconds(50));
             waitmanagerequestreceived.Until(ExpectedConditions.ElementToBeClickable(ReceivedManageRequestsLink));
 
             ReceivedManageRequestsLink.Click();
-
-            Thread.Sleep(2000);
+                        
+            GlobalDefinitions.driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(30);
 
             var waitreceivedrequest = new WebDriverWait(Global.GlobalDefinitions.driver, TimeSpan.FromSeconds(10));
             waitreceivedrequest.Until(ExpectedConditions.ElementToBeClickable(ReceivedRequestsLink));
 
             ReceivedRequestsLink.Click();
-            Thread.Sleep(2000);            
+            
+            GlobalDefinitions.driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(20);
         }
 
         //Click on Sent Requests
         public void SentRequests()
-        {
-            Thread.Sleep(4000);
+        {            
+            GlobalDefinitions.driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(40);
             var waitmanagerequest = new WebDriverWait(Global.GlobalDefinitions.driver, TimeSpan.FromSeconds(15));
             waitmanagerequest.Until(ExpectedConditions.ElementToBeClickable(ManageRequestsLink));
 
@@ -76,14 +78,16 @@ namespace MarsAdvancedTask.Pages
 
             SentRequestsLink.Click();
 
-            Thread.Sleep(4000);                     
+           
+            GlobalDefinitions.driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(40);
         }
 
         //Assertion for Sent Requests
 
         public void Assertion_SentRequests()
         {
-            Thread.Sleep(2000);
+            
+            GlobalDefinitions.driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(20);
             var waitsentrequesttable = new WebDriverWait(Global.GlobalDefinitions.driver, TimeSpan.FromSeconds(20));
             waitsentrequesttable.Until(ExpectedConditions.ElementToBeClickable(SentRequestsTable));
 
@@ -105,7 +109,8 @@ namespace MarsAdvancedTask.Pages
 
         public void Assertion_ReceivedRequests()
         {
-            Thread.Sleep(2000);
+            
+           GlobalDefinitions.driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(20);
            var waitsentrequesttable = new WebDriverWait(Global.GlobalDefinitions.driver, TimeSpan.FromSeconds(20));
            waitsentrequesttable.Until(ExpectedConditions.ElementToBeClickable(ReceivedRequestsTable));
 

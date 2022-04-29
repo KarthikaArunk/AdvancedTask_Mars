@@ -77,13 +77,13 @@ namespace MarsAdvancedTask.Pages
 
         public string GetLanguage()
         {
-            Thread.Sleep(1000);
+            GlobalDefinitions.driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);
             return LanguageFromTable.Text;
         }
 
         public string GetLanguageLevel()
         {
-            Thread.Sleep(1000);
+            GlobalDefinitions.driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);
             return LanguageLevelFromTable.Text;
         }
       }

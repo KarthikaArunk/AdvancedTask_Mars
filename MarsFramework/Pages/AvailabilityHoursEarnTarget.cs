@@ -1,4 +1,5 @@
 ﻿
+using MarsAdvancedTask.Global;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Support.PageObjects;
 using OpenQA.Selenium.Support.UI;
@@ -70,60 +71,72 @@ namespace MarsAdvancedTask.Pages
         {            
             //Click on  AvailabilityIcon
 
-            Thread.Sleep(5000);
+            //Thread.Sleep(5000);
+            GlobalDefinitions.driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(50);
             var wait = new WebDriverWait(Global.GlobalDefinitions.driver, TimeSpan.FromSeconds(10));
             wait.Until(ExpectedConditions.ElementToBeClickable(AvailabilityIcon));
             AvailabilityIcon.Click();
 
             //Select  AvailabilityDropdown
-            Thread.Sleep(2000);
+            //Thread.Sleep(2000);
+            GlobalDefinitions.driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(20);
             AvailabilityDropdown.Click();
             AvailabilityOption.Click();
 
-            Thread.Sleep(4000);
+            //Thread.Sleep(4000);
+            GlobalDefinitions.driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(40);
         }
 
         internal void Hours_Status()
         {
             //Click on HoursIcon
-            Thread.Sleep(4000);
+            //Thread.Sleep(4000);
+            GlobalDefinitions.driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(40);
             HoursIcon.Click();
-            Thread.Sleep(3000);
+            GlobalDefinitions.driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(30);
+            //Thread.Sleep(3000);
 
             HoursDropdown.Click();
 
-            Thread.Sleep(2000);
+            //Thread.Sleep(2000);
+            GlobalDefinitions.driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(20);
             HoursOption.Click();
         }
 
         internal void EarnTaregt_Status()
         {         
             //Click on  EarnTarget Icon
-            Thread.Sleep(2000);
+            //Thread.Sleep(2000);
+            GlobalDefinitions.driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(20);
             EarnTargetIcon.Click();
 
-            Thread.Sleep(2000);
+            //Thread.Sleep(2000);
+            GlobalDefinitions.driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(20);
             EarnTargetDropdown.Click();
 
-            Thread.Sleep(2000);
+            //Thread.Sleep(2000);
+            GlobalDefinitions.driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(20);
             EarnTargetOption.Click();                      
         }
 
         public string GetNewAvailabiltyData()
         {
-            Thread.Sleep(2000);
+            //Thread.Sleep(2000);
+            GlobalDefinitions.driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(20);
             return GetNewAvailability.Text;
         }
 
         public string GetNewHoursData()
         {
-            Thread.Sleep(2000);
+            //Thread.Sleep(2000);
+            GlobalDefinitions.driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(20);
             return GetNewHours.Text;
         }
 
         public string GetNewEarnTargetData()
         {
-            Thread.Sleep(2000);
+            //Thread.Sleep(2000);
+            GlobalDefinitions.driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(20);
             return GetNewEarnTarget.Text;
         }
     }

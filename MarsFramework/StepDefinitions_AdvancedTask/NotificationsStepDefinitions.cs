@@ -9,6 +9,7 @@ namespace MarsAdvancedTask
     [Binding]
     public class NotificationsStepDefinitions
     {
+        private string loadmorenotif;
         [BeforeScenario("tag10")]
         public void Init()
         {
@@ -28,7 +29,7 @@ namespace MarsAdvancedTask
         {
             NotificationObj = new Notifications_Skill();
             NotificationObj.Notifications_SkillSwap();
-            NotificationObj.LoadMore_Notification();
+            loadmorenotif = NotificationObj.LoadMore_Notification();
             NotificationObj.ShowLess_Notification();
         }
 
@@ -36,7 +37,7 @@ namespace MarsAdvancedTask
         [Then(@"\[I should be able to see all notifications]")]
         public void ThenIShouldBeAbleToSeeAllNotifications()
         {
-            NotificationObj.Notification_Assertion();
+            NotificationObj.Notification_Assertion(loadmorenotif);
         }
     }
 }

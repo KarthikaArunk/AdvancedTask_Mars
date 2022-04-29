@@ -82,19 +82,22 @@ namespace MarsAdvancedTask.Pages
 
         public string GetCertificate()
         {
-          Thread.Sleep(1000);
-          return CertificateFromTable.Text;
+          //Thread.Sleep(1000);
+            GlobalDefinitions.driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);
+            return CertificateFromTable.Text;
         }
 
         public string GetCertifiedFrom()
         {
-            Thread.Sleep(1000);
+            //Thread.Sleep(1000);
+            GlobalDefinitions.driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);
             return CertifiedFromTable.Text;
         }
 
         public string CertificateYear()
         {
-            Thread.Sleep(1000);
+            //Thread.Sleep(1000);
+            GlobalDefinitions.driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);
             return CertificateYearFromTable.Text;
         }
     }

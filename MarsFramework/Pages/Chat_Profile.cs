@@ -28,12 +28,12 @@ namespace MarsAdvancedTask.Pages
         private IWebElement SendBtn { get; set; }
         
         
-        public void Chat_ProfilePage()
+        public string Chat_ProfilePage()
         {
             //Populate the Excel Sheet
             GlobalDefinitions.ExcelLib.PopulateInCollection(Base.ExcelPath, "Chat");
 
-            var waitchat = new WebDriverWait(Global.GlobalDefinitions.driver, TimeSpan.FromSeconds(10));
+            var waitchat = new WebDriverWait(Global.GlobalDefinitions.driver, TimeSpan.FromSeconds(20));
             waitchat.Until(ExpectedConditions.ElementToBeClickable(ChatLink));
             ChatLink.Click();
 
@@ -41,13 +41,15 @@ namespace MarsAdvancedTask.Pages
             ChatTxtBox.SendKeys(chatmessage);
             SendBtn.Click();
 
+            return chatmessage;
+
         }   
         
-        public void Chat_Assertion()
+        public void Chat_Assertion(string chatmsg)
         {
-            Thread.Sleep(2000);
+            GlobalDefinitions.driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(40);
             var chatdata= GlobalDefinitions.driver.FindElement(By.XPath("/html/body/div/div/div/div[2]/div/div[2]/div/div/span/div[11]/div/div/span"));
-            Assert.That(chatdata.Text == "Hello…..Welcome", "Chat message not saved");
+            Assert.That(chatdata.Text == chatmsg, "Chat message not saved");
         }
     }
 }

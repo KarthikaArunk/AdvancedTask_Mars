@@ -14,11 +14,13 @@ namespace MarsAdvancedTask
             //Description
 
             [Test, Order(1)]
-            public void Test_Description()
+            public void Test_Description(string descrip)
             {
                 var descriptiontxt = new DescriptionProfile();
+                
                 //    descriptiontxt.Description();
-                descriptiontxt.Description_Add();
+                  descriptiontxt.Description_Add();
+                descriptiontxt.GetDescription(descrip);
             }
 
             //Availability,Hours,EarnTarget
@@ -137,9 +139,9 @@ namespace MarsAdvancedTask
             {
                 var notification = new Notifications_Skill();
                 notification.Notifications_SkillSwap();
-                notification.LoadMore_Notification();
+                var loadmorenotif = notification.LoadMore_Notification();
                 notification.ShowLess_Notification();
-                notification.Notification_Assertion();
+                notification.Notification_Assertion(loadmorenotif);
             }
 
             //Chat
@@ -148,8 +150,8 @@ namespace MarsAdvancedTask
             public void Test_Chat()
             {
                 var chatprofile = new Chat_Profile();
-                chatprofile.Chat_ProfilePage();
-                chatprofile.Chat_Assertion();
+                var chatmessage = chatprofile.Chat_ProfilePage();
+                chatprofile.Chat_Assertion(chatmessage);
             }
 
             //SearchSkills

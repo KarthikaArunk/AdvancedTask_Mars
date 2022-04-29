@@ -81,7 +81,8 @@ namespace MarsAdvancedTask.Pages
             AddNewEducationBtn.Click();
 
             //Enter University
-            Thread.Sleep(2000);
+            
+            GlobalDefinitions.driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(20);
             var universitydatafromexcel = GlobalDefinitions.ExcelLib.ReadData(2, "University");
             UniversityTxtBox.SendKeys(universitydatafromexcel);
 
@@ -106,31 +107,31 @@ namespace MarsAdvancedTask.Pages
 
         public string GetCountryData()
         {
-            Thread.Sleep(2000);
+            GlobalDefinitions.driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(20);
             return GetCountry.Text;
         }
 
         public string GetUniversityData()
         {
-            Thread.Sleep(2000);
+            GlobalDefinitions.driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(20);
             return GetUniversity.Text;
         }
 
         public string GetTitleData()
         {
-            Thread.Sleep(2000);
+            GlobalDefinitions.driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(20);
             return GetTitle.Text;
         }
 
         public string GetDegreeData()
         {
-            Thread.Sleep(2000);
+            GlobalDefinitions.driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(20);
             return GetDegree.Text;
         }
 
         public string GetYearData()
         {
-            Thread.Sleep(2000);
+            GlobalDefinitions.driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(20);
             return GetYear.Text;
         }
     }
