@@ -14,13 +14,12 @@ namespace MarsAdvancedTask
             //Description
 
             [Test, Order(1)]
-            public void Test_Description(string descrip)
+            public void Test_Description()
             {
-                var descriptiontxt = new DescriptionProfile();
-                
-                //    descriptiontxt.Description();
-                  descriptiontxt.Description_Add();
-                descriptiontxt.GetDescription(descrip);
+                var descriptiontxt = new DescriptionProfile();                
+                var descripdata = descriptiontxt.Description_Add();
+                var getdescrip = descriptiontxt.GetDescription();
+                Assert.That(descripdata == getdescrip, "Description doesn't match");
             }
 
             //Availability,Hours,EarnTarget
@@ -33,10 +32,17 @@ namespace MarsAdvancedTask
                 var hours = new AvailabilityHoursEarnTarget();
                 var earntarget = new AvailabilityHoursEarnTarget();
 
-                availability.Availability_Status();
-                hours.Hours_Status();
-                earntarget.EarnTaregt_Status();
+                var availdata= availability.Availability_Status();
+                var hoursdata=  hours.Hours_Status();
+                var earndata = earntarget.EarnTaregt_Status();
 
+                var getavail = availability.GetNewAvailabiltyData();
+                var gethours = hours.GetNewHoursData();
+                var getearn = earntarget.GetNewEarnTargetData();
+
+                Assert.That(availdata == getavail, "Availability doesn't match");
+                Assert.That(hoursdata == gethours, "Hours doesn't match");
+                Assert.That(earndata == getearn, "EarnTarget doesn't match");
             }
 
             //Language
@@ -48,7 +54,11 @@ namespace MarsAdvancedTask
             public void Test_AddLanguage(int excelrow)
             {
                 var newlanguage = new LanguageProfile();
-                newlanguage.NewLanguage(excelrow);
+                var languagedata = newlanguage.NewLanguage(excelrow);
+                var languagefound = newlanguage.LanguageDetails(languagedata);
+                
+                //Assertion
+                Assert.IsTrue(languagefound, $"{languagedata} added successfully");
             }
 
             //Skill
@@ -60,7 +70,12 @@ namespace MarsAdvancedTask
             public void Test_AddSkill(int excelrow)
             {
                 var newskill = new SkillProfile();
-                newskill.NewSkill(excelrow);
+                var skilldata= newskill.NewSkill(excelrow);
+                var skillfound= newskill.GetSkillDetails(skilldata);
+
+                //Assertion
+                Assert.IsTrue(skillfound, $"{skilldata} added successfully");
+
             }
             //Education
 
@@ -70,7 +85,20 @@ namespace MarsAdvancedTask
             public void Test_AddEducation()
             {
                 var neweducation = new EducationProfile();
-                neweducation.EducationDetails();
+                
+                var education = neweducation.EducationDetails(); ;
+                
+                var countrydata = neweducation.GetCountrydata();
+                var universitydata = neweducation.GetUniversitydata();
+                var titledata = neweducation.Gettitledata();
+                var degreedata = neweducation.Getdegreedata();
+                var yeardata = neweducation.Getyeardata();
+
+                Assert.That(education.country==countrydata,"Country doesn't match");
+                Assert.That(education.university == universitydata, "University doesn't match");
+                Assert.That(education.title == titledata, "Title doesn't match");
+                Assert.That(education.degree == degreedata, "Degree doesn't match");
+                Assert.That(education.year == yeardata, "Year doesn't match");              
             }
 
             //Certification
@@ -81,7 +109,9 @@ namespace MarsAdvancedTask
             public void Test_AddCertification()
             {
                 var newcertification = new CertificationProfile();
-                newcertification.NewCertification();
+                var certif= newcertification.NewCertification();
+                var certificdata = newcertification.GetCertificate();
+                Assert.That(certif == certificdata, "Certificate doesn't match");
             }
 
             //ShareSkill
@@ -94,7 +124,11 @@ namespace MarsAdvancedTask
             public void Test_Share_Skill(int excelrow)
             {
                 var shareskill = new ShareSkill();
-                shareskill.EnterShareSkill(excelrow);
+                var skilltitle = shareskill.EnterShareSkill(excelrow);
+                var skillfound = shareskill.ShareSkill_Assertion(skilltitle);
+
+                //Assertion
+                Assert.IsTrue(skillfound, $"{skilltitle} added successfully");
             }
 
             //Adding New Skill Failed
@@ -104,8 +138,12 @@ namespace MarsAdvancedTask
             public void Test_AddingNewSkillFailed()
             {
                 var addnewskillfailed = new ShareSkill();
-                addnewskillfailed.AddingNewSkillFailed();
-                addnewskillfailed.NewSkillFailed_Assertion();
+                var newskillfail = addnewskillfailed.AddingNewSkillFailed();
+                var categorydata = addnewskillfailed.NewSkillFailed_Assertion();
+
+                //Assertion
+
+                Assert.That(categorydata == newskillfail, "Successful Test");
             }
 
             //ManageListings
@@ -116,8 +154,16 @@ namespace MarsAdvancedTask
             {
                 var managelisting = new ManageListings();
                 managelisting.ViewListing();
-                managelisting.EditListing();
-                managelisting.DeleteListings();
+                var editdescrip =managelisting.EditListing();
+                var editassert = managelisting.Edit_Assertion(editdescrip);
+
+                var deletedata= managelisting.DeleteListings();
+                var deleteassert = managelisting.Delete_Assertion(deletedata);
+
+                //Assertion
+
+                Assert.IsTrue(editassert, $"{editdescrip} edited successfully");
+                Assert.IsFalse(deleteassert, "${deletedata} deleted successfully");
             }
 
             //ManageRequests
@@ -129,7 +175,9 @@ namespace MarsAdvancedTask
                 var managereqObj= new ManageRequests();
                 managereqObj.SentRequests();
                 managereqObj.ReceivedRequests();
-                managereqObj.Assertion_ReceivedRequests();
+                var titlereceived = managereqObj.Assertion_ReceivedRequests();
+
+                Assert.IsTrue(titlereceived, "Received Requests are saved successfully");
             }
 
             //Notification
@@ -141,7 +189,9 @@ namespace MarsAdvancedTask
                 notification.Notifications_SkillSwap();
                 var loadmorenotif = notification.LoadMore_Notification();
                 notification.ShowLess_Notification();
-                notification.Notification_Assertion(loadmorenotif);
+                //notification.Notification_Assertion(loadmorenotif);
+                var notif =notification.Notification_Assertion();
+                Assert.That(notif == loadmorenotif, "Notifications are saved");
             }
 
             //Chat
@@ -151,7 +201,11 @@ namespace MarsAdvancedTask
             {
                 var chatprofile = new Chat_Profile();
                 var chatmessage = chatprofile.Chat_ProfilePage();
-                chatprofile.Chat_Assertion(chatmessage);
+                var chatmsg = chatprofile.Chat_Assertion();
+
+                //Assertion
+
+                Assert.That(chatmessage == chatmsg, "Chat message not saved");
             }
 
             //SearchSkills

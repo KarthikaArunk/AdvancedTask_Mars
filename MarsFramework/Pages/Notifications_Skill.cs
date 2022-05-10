@@ -48,7 +48,7 @@ namespace MarsAdvancedTask.Pages
         //Click on Load More button
         
         [FindsBy(How = How.XPath, Using = "//*[@id='notification-section']/div[2]/div/div/div[3]/div[2]/span/span/div/div[6]/div/center/a")]
-
+        //[FindsBy(How = How.LinkText, Using = "Load More...")]
         private IWebElement LoadMoreBtn { get; set; }
         
         //Click on Notification Link
@@ -88,9 +88,11 @@ namespace MarsAdvancedTask.Pages
             //Thread.Sleep(2000);
             GlobalDefinitions.driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(20);
 
-            var waitunselectallbtn = new WebDriverWait(Global.GlobalDefinitions.driver, TimeSpan.FromSeconds(20));
+            var waitunselectallbtn = new WebDriverWait(Global.GlobalDefinitions.driver, TimeSpan.FromSeconds(40));
             waitunselectallbtn.Until(ExpectedConditions.ElementToBeClickable(UnSelectAllBtn));
             UnSelectAllBtn.Click();
+
+            GlobalDefinitions.driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);
         }
 
 
@@ -114,13 +116,12 @@ namespace MarsAdvancedTask.Pages
             showlessbtn.Click();
         }
 
-        public void Notification_Assertion(string loadmore)
+        public string Notification_Assertion()
         {
             //Thread.Sleep(3000);
             GlobalDefinitions.driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(30);
             var loadmorebtn = GlobalDefinitions.driver.FindElement(By.LinkText("Load More..."));
-            //Assert.That(loadmorebtn.Text== "Load More...","Notifications are saved");
-            Assert.That(loadmorebtn.Text == loadmore, "Notifications are saved");
+            return loadmorebtn.Text;
         }
     }
 }

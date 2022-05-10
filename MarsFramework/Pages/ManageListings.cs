@@ -3,7 +3,6 @@ using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
 using OpenQA.Selenium.Support.PageObjects;
 using System;
-using NUnit.Framework;
 using System.Collections.Generic;
 using System.Threading;
 
@@ -134,7 +133,7 @@ namespace MarsAdvancedTask.Pages
             return editeddescriptionfromexcel;
         }
 
-        public void Edit_Assertion(string descrip)
+        public bool Edit_Assertion(string descrip)
         {
 
                 //Assertion for Edit
@@ -151,7 +150,7 @@ namespace MarsAdvancedTask.Pages
                         break;
                     }
                 }
-                Assert.IsTrue(rowfound, $"{descrip} edited successfully");
+                return rowfound;
         }
 
        //Delete Listing
@@ -189,7 +188,7 @@ namespace MarsAdvancedTask.Pages
         }
 
         //Assertion for delete
-        public void Delete_Assertion(string deletedata)
+        public bool Delete_Assertion(string deletedata)
         {
            //Assertion for delete
 
@@ -206,7 +205,8 @@ namespace MarsAdvancedTask.Pages
                         break;
                }
            }
-             Assert.IsFalse(rowfound, "${deletedata} deleted successfully");
+            return rowfound;
+            
         }
     }       
 }

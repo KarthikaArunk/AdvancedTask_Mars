@@ -1,12 +1,10 @@
 ﻿
 
 using MarsAdvancedTask.Global;
-using NUnit.Framework;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Support.PageObjects;
 using OpenQA.Selenium.Support.UI;
 using System;
-using System.Threading;
 
 namespace MarsAdvancedTask.Pages
 {
@@ -58,9 +56,10 @@ namespace MarsAdvancedTask.Pages
             return description;
         }
 
-        public void GetDescription( string descrip)
+        public string GetDescription()
         {
-            Assert.That(GetDescriptionTxt.Text == descrip, "Description doesn't match");
+            GlobalDefinitions.driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);
+            return GetDescriptionTxt.Text;
         }
     }
 }

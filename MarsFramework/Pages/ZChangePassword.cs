@@ -80,7 +80,7 @@ namespace MarsAdvancedTask.Pages
 
             
             GlobalDefinitions.driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(30);
-            var waitsignout = new WebDriverWait(Global.GlobalDefinitions.driver, TimeSpan.FromSeconds(20));
+            var waitsignout = new WebDriverWait(Global.GlobalDefinitions.driver, TimeSpan.FromSeconds(30));
             waitsignout.Until(ExpectedConditions.ElementToBeClickable(SignOutBtn));
             SignOutBtn.Click();
         }

@@ -11,6 +11,7 @@ namespace MarsAdvancedTask
     public class ShareSkillStepDefinitions
     {
         private string skilldata;
+        private string addskillfailed;
         [BeforeScenario("tag7")]
         public void Init()
         {
@@ -35,22 +36,23 @@ namespace MarsAdvancedTask
         public void ThenSkillListingsShouldBeSaved()
         {
             
-            SkillObj.ShareSkill_Assertion(skilldata);
+            var rowcheck= SkillObj.ShareSkill_Assertion(skilldata);
+            Assert.IsTrue(rowcheck, $"{skilldata} added successfully");
         }
 
         [When(@"\[I add few fields for new skill]")]
         public void WhenIAddFewFieldsForNewSkill()
         {
             SkillObj = new ShareSkill();
-            SkillObj.AddingNewSkillFailed();
+            addskillfailed = SkillObj.AddingNewSkillFailed();
         }
 
                 
         [Then(@"\[An error message should be displayed]")]
         public void ThenAnErrorMessageShouldBeDisplayed()
         {
-            SkillObj.NewSkillFailed_Assertion();
+            var categorydata = SkillObj.NewSkillFailed_Assertion();
+            Assert.That(categorydata == addskillfailed, "Successful Test");
         }
-
     }
 }

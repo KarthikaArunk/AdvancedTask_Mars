@@ -37,7 +37,8 @@ namespace MarsAdvancedTask
         [Then(@"\[I should be able to see all notifications]")]
         public void ThenIShouldBeAbleToSeeAllNotifications()
         {
-            NotificationObj.Notification_Assertion(loadmorenotif);
+            var notif = NotificationObj.Notification_Assertion();
+            Assert.That(notif == loadmorenotif, "Notifications are saved");
         }
     }
 }

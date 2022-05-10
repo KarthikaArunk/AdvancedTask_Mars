@@ -36,7 +36,8 @@ namespace MarsAdvancedTask
         [Then(@"\[I should be able to send message]")]
         public void ThenIShouldBeAbleToSendMessage()
         {
-            chatObj.Chat_Assertion(chatmsg);
+            string chatmsge = chatObj.Chat_Assertion();
+            Assert.That(chatmsge == chatmsg, "Chat message not saved");
         }
     }
 }

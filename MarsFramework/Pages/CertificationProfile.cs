@@ -3,7 +3,7 @@ using OpenQA.Selenium;
 using OpenQA.Selenium.Support.PageObjects;
 using OpenQA.Selenium.Support.UI;
 using System;
-using System.Threading;
+
 
 namespace MarsAdvancedTask.Pages
 {
@@ -52,14 +52,14 @@ namespace MarsAdvancedTask.Pages
         private IWebElement CertificateYearFromTable { get; set; }
 
         
-        public void NewCertification()
+        public string NewCertification()
         {
 
             //Populate the Excel Sheet
             GlobalDefinitions.ExcelLib.PopulateInCollection(Base.ExcelPath, "Certifications");
 
             //Click on  Language Tab
-            var wait = new WebDriverWait(Global.GlobalDefinitions.driver, TimeSpan.FromSeconds(10));
+            var wait = new WebDriverWait(Global.GlobalDefinitions.driver, TimeSpan.FromSeconds(20));
             wait.Until(ExpectedConditions.ElementToBeClickable(CertificationTab));
             CertificationTab.Click();
 
@@ -78,27 +78,14 @@ namespace MarsAdvancedTask.Pages
             CertificationYear.SendKeys(newcertifiedyearfromexcel);
 
             AddCertificationBtn.Click();
+
+            return newcertificatedatafromexcel;
         }
 
         public string GetCertificate()
         {
-          //Thread.Sleep(1000);
             GlobalDefinitions.driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);
             return CertificateFromTable.Text;
         }
-
-        public string GetCertifiedFrom()
-        {
-            //Thread.Sleep(1000);
-            GlobalDefinitions.driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);
-            return CertifiedFromTable.Text;
-        }
-
-        public string CertificateYear()
-        {
-            //Thread.Sleep(1000);
-            GlobalDefinitions.driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);
-            return CertificateYearFromTable.Text;
-        }
-    }
+     }
 }

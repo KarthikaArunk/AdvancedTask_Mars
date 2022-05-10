@@ -3,7 +3,7 @@ using OpenQA.Selenium;
 using OpenQA.Selenium.Support.PageObjects;
 using OpenQA.Selenium.Support.UI;
 using System;
-
+using System.Collections.Generic;
 
 namespace MarsAdvancedTask.Pages
 {
@@ -34,6 +34,11 @@ namespace MarsAdvancedTask.Pages
         [FindsBy(How = How.XPath, Using = "//*[@id='account-profile-section']/div/section[2]/div/div/div/div[3]/form/div[3]/div/div[2]/div/div/span/input[1]")]
         private IWebElement AddSkillBtn { get; set; }
 
+        //Skill table
+
+        [FindsBy(How = How.XPath, Using = "//*[@id='account-profile-section']/div/section[2]/div/div/div/div[3]/form/div[3]/div/div[2]/div/table")]
+        private IWebElement SkillListing { get; set; }
+
         //Get Skill from Table
         [FindsBy(How = How.XPath, Using = "//*[@id='account-profile-section']/div/section[2]/div/div/div/div[3]/form/div[3]/div/div[2]/div/table/tbody/tr/td[1]")]
         private IWebElement SkillFromTable { get; set; }
@@ -42,7 +47,7 @@ namespace MarsAdvancedTask.Pages
         [FindsBy(How = How.XPath, Using = "//*[@id='account-profile-section']/div/section[2]/div/div/div/div[3]/form/div[3]/div/div[2]/div/table/tbody/tr/td[2]")]
         private IWebElement SkillLevelFromTable { get; set; }
 
-        internal void NewSkill(int excelrow)
+        public string NewSkill(int excelrow)
         {
             //Populate the Excel Sheet
             GlobalDefinitions.ExcelLib.PopulateInCollection(Base.ExcelPath, "Skill");
@@ -74,18 +79,31 @@ namespace MarsAdvancedTask.Pages
             //Click on Add button on skill tab
 
             AddSkillBtn.Click();
+
+            return newskilldatafromexcel;
+            
         }
 
-        public string GetSkill()
+        public bool GetSkillDetails(string skill)
         {            
-            GlobalDefinitions.driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);
-            return SkillFromTable.Text;
-        }
+            GlobalDefinitions.driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(20);
+            
+            var wait = new WebDriverWait(Global.GlobalDefinitions.driver, TimeSpan.FromSeconds(20));
 
-        public string GetSkillLevel()
-        {
-            GlobalDefinitions.driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);
-            return SkillLevelFromTable.Text;
+            wait.Until(ExpectedConditions.ElementToBeClickable(SkillListing));
+
+            IList<IWebElement> rows = SkillListing.FindElements(By.XPath("//tbody/tr"));
+            var rowfound = false;
+            for (int i = 1; i <= rows.Count; i++)
+            {
+                if (SkillListing.FindElement(By.XPath($"//tbody[{i}]/tr/td[1]")).Text == skill)
+                {
+
+                    rowfound = true;
+                    break;
+                }
+            }
+            return rowfound;                       
         }
 
     }

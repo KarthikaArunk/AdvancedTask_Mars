@@ -28,8 +28,9 @@ namespace MarsAdvancedTask
         EducationProfile educationObj;
         CertificationProfile certificationObj;
         SignIn SignInObj;
-        private string descrip;
-
+        private string descrip,skill, language, certification, educountry, eduuniversity, edudegree, edutitle, eduyear, availabilitydata,hours, earntarg;
+              
+        
         //SignIn
         
         [Given(@"\[I login successfully]")]
@@ -44,7 +45,7 @@ namespace MarsAdvancedTask
         [When(@"\[I add description in profile]")]
         public void WhenIAddDescriptionInProfile()
         {
-            descriptionObj = new DescriptionProfile();
+           descriptionObj = new DescriptionProfile();
 
            descrip = descriptionObj.Description_Add();
         }
@@ -52,9 +53,8 @@ namespace MarsAdvancedTask
         [Then(@"\[Description should be saved]")]
         public void ThenDescriptionShouldBeSaved()
         {
-            //var descriptiontxt = descriptionObj.GetDescription();
-            //Assert.That(descriptiontxt == "Hi, I am Karthika. Craft making is my hobby.", "Description doesn't match");
-            descriptionObj.GetDescription(descrip);
+            string descripdata = descriptionObj.GetDescription();
+            Assert.That(descripdata == descrip, "Description doesn't match");
         }
 
         //Add Availability,Hours and EarnTarget
@@ -63,22 +63,24 @@ namespace MarsAdvancedTask
         public void WhenIAddAvailabilityHoursAndEarnTargetInProfile()
         {
             TargetObj = new AvailabilityHoursEarnTarget();
-            TargetObj.Availability_Status();
-            TargetObj.Hours_Status();
-            TargetObj.EarnTaregt_Status();
+            availabilitydata = TargetObj.Availability_Status();
+            hours = TargetObj.Hours_Status();
+            earntarg = TargetObj.EarnTaregt_Status();
         }
 
         [Then(@"\[Availability,Hours and EarnTarget details should be saved]")]
         public void ThenAvailabilityHoursAndEarnTargetDetailsShouldBeSaved()
         {
-            var newAvail = TargetObj.GetNewAvailabiltyData();
-            var newHours = TargetObj.GetNewHoursData();
-            var newEarn = TargetObj.GetNewEarnTargetData();
+            
+            string newavailability =TargetObj.GetNewAvailabiltyData();
+            string newhours =TargetObj.GetNewHoursData();
+            string etarget = TargetObj.GetNewEarnTargetData();
 
             //Assertion
-            Assert.That(newAvail == "Part Time", "Availability doesn't match");
-            Assert.That(newHours == "More than 30hours a week", "Hours doesn't match");
-            Assert.That(newEarn == "Between $500 and $1000 per month", "EarnTarget doesn't match");
+
+            Assert.That(newavailability == availabilitydata, "Availability doesn't match");
+            Assert.That(newhours == hours, "Hours doesn't match");
+            Assert.That(etarget == earntarg, "EarnTarget doesn't match");
         }
 
         //Add New Language
@@ -87,16 +89,14 @@ namespace MarsAdvancedTask
         public void WhenIAddNewLanguageInProfileFrom(string p0)
         {
             languageObj = new LanguageProfile();
-            languageObj.NewLanguage(int.Parse(p0));
+            language= languageObj.NewLanguage(int.Parse(p0));
         }
 
         [Then(@"\[Langauge should be saved]")]
         public void ThenLangaugeShouldBeSaved()
         {
-            var language = languageObj.GetLanguage();
-            var languagelevel = languageObj.GetLanguageLevel();
-            Assert.IsNotNull(language);
-            Assert.IsNotNull(languagelevel);
+            var rowfound = languageObj.LanguageDetails(language);
+            Assert.IsTrue(rowfound, $"{language} added successfully");
         }
 
         //Add New Skill
@@ -105,16 +105,14 @@ namespace MarsAdvancedTask
         public void WhenIAddNewSkillInProfileFrom(string p0)
         {
             skillObj = new SkillProfile();
-            skillObj.NewSkill(int.Parse(p0));
+            skill = skillObj.NewSkill(int.Parse(p0));
         }
 
         [Then(@"\[Skill should be saved]")]
         public void ThenSkillShouldBeSaved()
         {
-            var skill = skillObj.GetSkill();
-            var skillevel = skillObj.GetSkillLevel();
-            Assert.IsNotNull(skill);
-            Assert.IsNotNull(skillevel);
+             var rowfoundskill = skillObj.GetSkillDetails(skill);
+            Assert.IsTrue(rowfoundskill, $"{skill} added successfully");
         }
 
         //Add Education
@@ -123,23 +121,24 @@ namespace MarsAdvancedTask
         public void WhenIAddEducationInProfile()
         {
             educationObj = new EducationProfile();
-            educationObj.EducationDetails();
+            (educountry, eduuniversity, edutitle, edudegree,eduyear) = educationObj.EducationDetails();
+            
         }
 
         [Then(@"\[Education should be saved]")]
         public void ThenEducationShouldBeSaved()
         {
-            var eduCountry = educationObj.GetCountryData();
-            var educUniversity = educationObj.GetUniversityData();
-            var educTitle = educationObj.GetTitleData();
-            var educDegree = educationObj.GetDegreeData();
-            var educYear = educationObj.GetYearData();
+            string countrydata = educationObj.GetCountrydata();
+            string univeritydata = educationObj.GetUniversitydata();
+            string titledata = educationObj.Gettitledata();
+            string degreedata = educationObj.Getdegreedata();
+            string yeardata = educationObj.Getyeardata();
 
-            Assert.That(eduCountry == "Australia", "Country doesn't match");
-            Assert.That(educUniversity == "UQ", "University doesn't match");
-            Assert.That(educTitle == "M.Tech", "Title doesn't match");
-            Assert.That(educDegree == "Computer", "Degree doesn't match");
-            Assert.That(educYear == "2010", "Year doesn't match");
+            Assert.That(countrydata == educountry, "Country doesn't match");
+            Assert.That(univeritydata == eduuniversity, "University doesn't match");                     
+            Assert.That(titledata == edutitle, "Title doesn't match");            
+            Assert.That(degreedata == edudegree, "Degree doesn't match");            
+            Assert.That(yeardata == eduyear, "Year doesn't match");
         }
 
         //Adding Certification
@@ -148,19 +147,14 @@ namespace MarsAdvancedTask
         public void WhenIAddCertificationInProfile()
         {
             certificationObj = new CertificationProfile();
-            certificationObj.NewCertification();
+            certification= certificationObj.NewCertification();
         }
 
         [Then(@"\[certification should be saved]")]
         public void ThenCertificationShouldBeSaved()
         {
-            var certificateName = certificationObj.GetCertificate();
-            var certificationFrom = certificationObj.GetCertifiedFrom();
-            var certificationYear = certificationObj.CertificateYear();
-
-            Assert.That(certificateName == "ISTQB", "Certification doesn't match");
-            Assert.That(certificationFrom == "ITB", "Certification from doesn't match");
-            Assert.That(certificationYear == "2008", "Certification year doesn't match");
+            string getcertific=  certificationObj.GetCertificate();
+            Assert.That(getcertific == certification, "Certificate doesn't match");
         }
     }
 }

@@ -228,7 +228,7 @@ namespace MarsAdvancedTask.Pages
             return titledatafromexcel;
         }
 
-        public void ShareSkill_Assertion(string titledata)
+        public bool ShareSkill_Assertion(string titledata)
         {
 
             //Assertion for ShareSkill
@@ -250,7 +250,8 @@ namespace MarsAdvancedTask.Pages
                     break;
                 }
             }
-            Assert.IsTrue(rowfound, $"{titledata} added successfully");
+
+            return rowfound;          
         }
     
         private string FillDataFromExcel(int excelrow, string columnName, IWebElement element)
@@ -260,7 +261,8 @@ namespace MarsAdvancedTask.Pages
             return datafromexcel;
         }
 
-        public void AddingNewSkillFailed()
+        //Negative testcase 
+        public string AddingNewSkillFailed()
         {
             
             GlobalDefinitions.driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(40);
@@ -279,14 +281,17 @@ namespace MarsAdvancedTask.Pages
             var newdescriptiondatafromexcel = GlobalDefinitions.ExcelLib.ReadData(5, "Description");
             Description.SendKeys(newdescriptiondatafromexcel);
 
+            var categorydata= GlobalDefinitions.ExcelLib.ReadData(5, "Category");
+
             Save.Click();
+            return categorydata;
         }
 
-        public void NewSkillFailed_Assertion()
+        public string NewSkillFailed_Assertion()
         {
             //Assertion
             var categoryrequired = GlobalDefinitions.driver.FindElement(By.XPath("//*[@id='service-listing-section']/div[2]/div/form/div[3]/div[2]/div[2]"));
-            Assert.That(categoryrequired.Text == "Category is required", "Successful Test");
+            return categoryrequired.Text;           
         }
     }
 }

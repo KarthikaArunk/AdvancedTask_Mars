@@ -1,4 +1,5 @@
 ﻿using MarsAdvancedTask.Global;
+using NUnit.Framework;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Support.PageObjects;
 using OpenQA.Selenium.Support.UI;
@@ -68,33 +69,34 @@ namespace MarsAdvancedTask.Pages
         private IWebElement GetYear { get; set; }
 
 
-        public void EducationDetails()
+        public (string country, string university,string title,string degree,string year) EducationDetails()
         {
             //Populate the Excel Sheet
             GlobalDefinitions.ExcelLib.PopulateInCollection(Base.ExcelPath, "Education");
 
             //Click on  Language Tab
-            var wait = new WebDriverWait(Global.GlobalDefinitions.driver, TimeSpan.FromSeconds(10));
+            var wait = new WebDriverWait(Global.GlobalDefinitions.driver, TimeSpan.FromSeconds(20));
             wait.Until(ExpectedConditions.ElementToBeClickable(EducationTab));
             EducationTab.Click();
 
             AddNewEducationBtn.Click();
 
-            //Enter University
-            
-            GlobalDefinitions.driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(20);
-            var universitydatafromexcel = GlobalDefinitions.ExcelLib.ReadData(2, "University");
-            UniversityTxtBox.SendKeys(universitydatafromexcel);
-
             //Enter Country
             var countrydatafromexcel = GlobalDefinitions.ExcelLib.ReadData(2, "Country");
             Country.SendKeys(countrydatafromexcel);
+
+            //Enter University
+
+            GlobalDefinitions.driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(20);
+            var universitydatafromexcel = GlobalDefinitions.ExcelLib.ReadData(2, "University");
+            UniversityTxtBox.SendKeys(universitydatafromexcel);
+                        
 
             //Enter Title
             var titledatafromexcel = GlobalDefinitions.ExcelLib.ReadData(2, "Title");
             Title.SendKeys(titledatafromexcel);
 
-            //Enter Title
+            //Enter Degree
             var degreedatafromexcel = GlobalDefinitions.ExcelLib.ReadData(2, "Degree");
             DegreeTxtBox.SendKeys(degreedatafromexcel);
 
@@ -103,36 +105,39 @@ namespace MarsAdvancedTask.Pages
             GraduationYear.SendKeys(yeardatafromexcel);
 
             AddEducationBtn.Click();
+
+            return (countrydatafromexcel, universitydatafromexcel, titledatafromexcel, degreedatafromexcel, yeardatafromexcel);
         }
 
-        public string GetCountryData()
+        public string GetCountrydata()
         {
             GlobalDefinitions.driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(20);
             return GetCountry.Text;
         }
 
-        public string GetUniversityData()
+        public string GetUniversitydata()
         {
             GlobalDefinitions.driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(20);
             return GetUniversity.Text;
         }
 
-        public string GetTitleData()
+        public string Gettitledata()
         {
             GlobalDefinitions.driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(20);
             return GetTitle.Text;
         }
 
-        public string GetDegreeData()
+        public string Getdegreedata()
         {
             GlobalDefinitions.driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(20);
             return GetDegree.Text;
         }
 
-        public string GetYearData()
+        public string Getyeardata()
         {
             GlobalDefinitions.driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(20);
             return GetYear.Text;
         }
+
     }
 }

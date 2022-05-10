@@ -3,7 +3,8 @@ using OpenQA.Selenium;
 using OpenQA.Selenium.Support.PageObjects;
 using OpenQA.Selenium.Support.UI;
 using System;
-using System.Threading;
+using System.Collections.Generic;
+
 
 namespace MarsAdvancedTask.Pages
 {
@@ -42,13 +43,18 @@ namespace MarsAdvancedTask.Pages
         //Get  Language level from table
         [FindsBy(How = How.XPath, Using = "//*[@id='account-profile-section']/div/section[2]/div/div/div/div[3]/form/div[2]/div/div[2]/div/table/tbody/tr/td[2]")]
         private IWebElement LanguageLevelFromTable { get; set; }
-        public void NewLanguage(int excelrow)
+
+        //Language table
+        [FindsBy(How = How.XPath, Using = "//*[@id='account-profile-section']/div/section[2]/div/div/div/div[3]/form/div[2]/div/div[2]/div/table")]
+        private IWebElement LanguageListing { get; set; }
+
+        public string NewLanguage(int excelrow)
         {
             //Populate the Excel Sheet
             GlobalDefinitions.ExcelLib.PopulateInCollection(Base.ExcelPath, "Languages");
 
             //Click on  Language Tab
-            var wait = new WebDriverWait(Global.GlobalDefinitions.driver, TimeSpan.FromSeconds(10));
+            var wait = new WebDriverWait(Global.GlobalDefinitions.driver, TimeSpan.FromSeconds(20));
             wait.Until(ExpectedConditions.ElementToBeClickable(LanguageTab));
             LanguageTab.Click();
 
@@ -73,18 +79,34 @@ namespace MarsAdvancedTask.Pages
 
             AddLanguageBtn.Click();
 
+            return newlanguagedatafromexcel;
+
         }
 
-        public string GetLanguage()
+        public bool LanguageDetails(string language)
         {
             GlobalDefinitions.driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);
-            return LanguageFromTable.Text;
-        }
+            //return LanguageFromTable.Text;
 
-        public string GetLanguageLevel()
-        {
-            GlobalDefinitions.driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);
-            return LanguageLevelFromTable.Text;
+            GlobalDefinitions.driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(20);
+
+            var wait = new WebDriverWait(Global.GlobalDefinitions.driver, TimeSpan.FromSeconds(20));
+
+            wait.Until(ExpectedConditions.ElementToBeClickable(LanguageListing));
+
+            IList<IWebElement> rows = LanguageListing.FindElements(By.XPath("//tbody/tr"));
+            var rowfound = false;
+            for (int i = 1; i <= rows.Count; i++)
+            {
+                if (LanguageListing.FindElement(By.XPath($"//tbody[{i}]/tr/td[1]")).Text == language)
+                {
+
+                    rowfound = true;
+                    break;
+                }
+            }
+
+            return rowfound;            
+            }
         }
-      }
     }
