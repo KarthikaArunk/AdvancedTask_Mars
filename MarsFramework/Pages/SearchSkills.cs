@@ -69,37 +69,42 @@ namespace MarsAdvancedTask.Pages
       
         public void SearchBy_Filter()
         {
-            Thread.Sleep(3000);
-            var waitsearchfilter = new WebDriverWait(Global.GlobalDefinitions.driver, TimeSpan.FromSeconds(20));
+            //Thread.Sleep(3000);
+            GlobalDefinitions.driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(50);
+            var waitsearchfilter = new WebDriverWait(Global.GlobalDefinitions.driver, TimeSpan.FromSeconds(30));
             waitsearchfilter.Until(ExpectedConditions.ElementToBeClickable(SearchFilterOnline));
 
             SearchFilterOnline.Click();
             SearchFilterOnline.SendKeys("\n");
 
-            Thread.Sleep(1000);
+            //Thread.Sleep(1000);
+            GlobalDefinitions.driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(20);
         }
 
         public void SearchBy_Skill()
         {
 
-            Thread.Sleep(3000);
+            //Thread.Sleep(3000);
+            GlobalDefinitions.driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(30);
 
             var wait = new WebDriverWait(Global.GlobalDefinitions.driver, TimeSpan.FromSeconds(15));
             wait.Until(ExpectedConditions.ElementToBeClickable(Skilltxtbox));
 
-            Thread.Sleep(3000);
+            //Thread.Sleep(3000);
+            GlobalDefinitions.driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(30);
 
             var searchskill = GlobalDefinitions.ExcelLib.ReadData(2, "SkillToSearch");
             Skilltxtbox.SendKeys(searchskill);
             Skilltxtbox.SendKeys("\n");
             Skilltxtbox.Click();
 
-            Thread.Sleep(3000);
+            //Thread.Sleep(3000);
+            GlobalDefinitions.driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(30);
         }
        public void SearchSkill_Assertion()
          {
-            Thread.Sleep(3000);
-
+            //Thread.Sleep(3000);
+            GlobalDefinitions.driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(30);
             var wait = new WebDriverWait(Global.GlobalDefinitions.driver, TimeSpan.FromSeconds(15));
             wait.Until(ExpectedConditions.ElementToBeClickable(ClickOnSkill));
             ClickOnSkill.Click();

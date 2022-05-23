@@ -100,63 +100,74 @@ namespace MarsAdvancedTask.Pages
         //Enter Skill Details
         internal string EnterShareSkill(int excelrow)
         {
-            Thread.Sleep(3000);
+            
+            GlobalDefinitions.driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(30);
             //Click on  ShareSkill Button
             var wait = new WebDriverWait(Global.GlobalDefinitions.driver, TimeSpan.FromSeconds(10));
             wait.Until(ExpectedConditions.ElementToBeClickable(ShareSkillButton));
             ShareSkillButton.Click();
 
-            Thread.Sleep(3000);
+            
+            GlobalDefinitions.driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(30);
 
             //Enter Title
             wait.Until(ExpectedConditions.ElementToBeClickable(Title));
             string titledatafromexcel = FillDataFromExcel(excelrow, "Title", Title);
 
-            Thread.Sleep(1000);
+            
+            GlobalDefinitions.driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);
 
             //Enter Description
             string description = FillDataFromExcel(excelrow, "Description", Description);
 
-            Thread.Sleep(1000);
+            
+            GlobalDefinitions.driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);
             //Select Category
             wait.Until(ExpectedConditions.ElementToBeClickable(CategoryDropDown));
             string categorydatafromexcel = FillDataFromExcel(excelrow, "Category", CategoryDropDown);
 
-            Thread.Sleep(1000);
+            
+            GlobalDefinitions.driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);
 
             //Select subcategory
             wait.Until(ExpectedConditions.ElementToBeClickable(SubCategoryDropDown));
             string subcategorydatafromexcel = FillDataFromExcel(excelrow, "SubCategory", SubCategoryDropDown);
 
-            Thread.Sleep(1000);
+            
+            GlobalDefinitions.driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);
 
             //Enter Tags
             wait.Until(ExpectedConditions.ElementToBeClickable(Tags));
             string tagsdatafromexcel = FillDataFromExcel(excelrow, "Tags", Tags);
             Tags.SendKeys("\n");
 
-            Thread.Sleep(1000);
+            
+            GlobalDefinitions.driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);
 
             //Select ServiceType Options
             wait.Until(ExpectedConditions.ElementToBeClickable(ServiceTypeOptions));
             ServiceTypeOptions.Click();
 
-            Thread.Sleep(1000);
+            
+            GlobalDefinitions.driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);
 
             //Select LocationType Options
             LocationTypeOption.Click();
 
-            Thread.Sleep(1000);
+            
+            GlobalDefinitions.driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);
 
             //Enter Startdate
             string startdatefromexcel = FillDataFromExcel(excelrow, "Startdate", StartDateDropDown);
 
-            Thread.Sleep(1000);
+            
+            GlobalDefinitions.driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);
 
             //Enter Enddate
             string enddatefromexcel = FillDataFromExcel(excelrow, "Enddate", EndDateDropDown);
 
-            Thread.Sleep(1000);
+            
+            GlobalDefinitions.driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);
 
             //Enter Days
             var daysdatafromexcel = GlobalDefinitions.ExcelLib.ReadData(excelrow, "Selectday");
@@ -166,42 +177,49 @@ namespace MarsAdvancedTask.Pages
             var daylabel = Days.FindElement(By.XPath($"//label[text()='{daysdatafromexcel}']"));
             var parent = daylabel.FindElement(By.XPath("./parent::div/parent::div/parent::div"));
 
-            Thread.Sleep(1000);
+           
+            GlobalDefinitions.driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);
 
             //Enter StartTime
             var starttimefromexcel = GlobalDefinitions.ExcelLib.ReadData(excelrow, "Starttime");
             StartTime = parent.FindElement(By.Name("StartTime"));
             StartTime.SendKeys(starttimefromexcel);
 
-            Thread.Sleep(1000);
+            
+            GlobalDefinitions.driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);
 
             //Enter Endtime
             var endtimefromexcel = GlobalDefinitions.ExcelLib.ReadData(excelrow, "Endtime");
             EndTime = parent.FindElement(By.Name("EndTime"));
             EndTime.SendKeys(endtimefromexcel);
 
-            Thread.Sleep(1000);
+            
+            GlobalDefinitions.driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);
 
             //Select SkillTrade
             SkillTradeOption.Click();
 
-            Thread.Sleep(1000);
+            
+            GlobalDefinitions.driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);
 
             //Enter SkillExchange Tag
             string skillexchangetagdatafromexcel = FillDataFromExcel(excelrow, "Skill-Exchange", SkillExchangeTag);
             SkillExchangeTag.SendKeys("\n");
 
-            Thread.Sleep(1000);
+            
+            GlobalDefinitions.driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);
 
             //Select Credit
             Credit.Click();
 
-            Thread.Sleep(1000);
+            
+            GlobalDefinitions.driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);
 
             //Enter Credit Amount
             string creditamountfromexcel = FillDataFromExcel(excelrow, "CreditAmount", CreditAmount);
 
-            Thread.Sleep(1000);
+            
+            GlobalDefinitions.driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);
 
             //Select Active option
             ActiveOption.Click();
@@ -210,12 +228,12 @@ namespace MarsAdvancedTask.Pages
             return titledatafromexcel;
         }
 
-        public void ShareSkill_Assertion(string titledata)
+        public bool ShareSkill_Assertion(string titledata)
         {
 
             //Assertion for ShareSkill
 
-            Thread.Sleep(3000);
+            GlobalDefinitions.driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(30);
 
             var wait = new WebDriverWait(Global.GlobalDefinitions.driver, TimeSpan.FromSeconds(10));
 
@@ -232,7 +250,8 @@ namespace MarsAdvancedTask.Pages
                     break;
                 }
             }
-            Assert.IsTrue(rowfound, $"{titledata} added successfully");
+
+            return rowfound;          
         }
     
         private string FillDataFromExcel(int excelrow, string columnName, IWebElement element)
@@ -242,9 +261,11 @@ namespace MarsAdvancedTask.Pages
             return datafromexcel;
         }
 
-        public void AddingNewSkillFailed()
+        //Negative testcase 
+        public string AddingNewSkillFailed()
         {
-            Thread.Sleep(4000);
+            
+            GlobalDefinitions.driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(40);
             var wait = new WebDriverWait(Global.GlobalDefinitions.driver, TimeSpan.FromSeconds(20));
             wait.Until(ExpectedConditions.ElementToBeClickable(ShareSkillButton));
             ShareSkillButton.Click();
@@ -260,14 +281,17 @@ namespace MarsAdvancedTask.Pages
             var newdescriptiondatafromexcel = GlobalDefinitions.ExcelLib.ReadData(5, "Description");
             Description.SendKeys(newdescriptiondatafromexcel);
 
+            var categorydata= GlobalDefinitions.ExcelLib.ReadData(5, "Category");
+
             Save.Click();
+            return categorydata;
         }
 
-        public void NewSkillFailed_Assertion()
+        public string NewSkillFailed_Assertion()
         {
             //Assertion
             var categoryrequired = GlobalDefinitions.driver.FindElement(By.XPath("//*[@id='service-listing-section']/div[2]/div/form/div[3]/div[2]/div[2]"));
-            Assert.That(categoryrequired.Text == "Category is required", "Successful Test");
+            return categoryrequired.Text;           
         }
     }
 }

@@ -2,7 +2,7 @@ using MarsAdvancedTask.Pages;
 using System;
 using TechTalk.SpecFlow;
 using MarsAdvancedTask.Global;
-
+using NUnit.Framework;
 
 namespace MarsAdvancedTask
 {
@@ -36,8 +36,8 @@ namespace MarsAdvancedTask
         [Then(@"\[I should be able to see received and sent requests]")]
         public void ThenIShouldBeAbleToSeeReceivedAndSentRequests()
         {
-            manageReqObj.Assertion_ReceivedRequests();
-           
+            var titlereceived = manageReqObj.Assertion_ReceivedRequests();
+            Assert.IsTrue(titlereceived, "Received Requests are saved successfully");
         }
     }
 }

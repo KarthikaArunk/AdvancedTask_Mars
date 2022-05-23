@@ -41,8 +41,11 @@ namespace MarsAdvancedTask
         [Then(@"\[I should be able to see all listings]")]
         public void ThenIShouldBeAbleToSeeAllListings()
         {
-            manageListingObj.Edit_Assertion(editeddescription);
-            manageListingObj.Delete_Assertion(deletedata);
+            var editdata = manageListingObj.Edit_Assertion(editeddescription);
+            Assert.IsTrue(editdata, $"{editeddescription} edited successfully");
+
+            var rowtodelete = manageListingObj.Delete_Assertion(deletedata);
+            Assert.IsFalse(rowtodelete, "${deletedata} deleted successfully");
         }
     }
 }

@@ -1,10 +1,9 @@
 ﻿using MarsAdvancedTask.Global;
-using NUnit.Framework;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Support.PageObjects;
 using OpenQA.Selenium.Support.UI;
 using System;
-using System.Threading;
+
 
 
 namespace MarsAdvancedTask.Pages
@@ -26,14 +25,19 @@ namespace MarsAdvancedTask.Pages
         //Click on Send button
         [FindsBy(How = How.XPath, Using = "//*[@id='btnSend']")]
         private IWebElement SendBtn { get; set; }
-        
-        
-        public void Chat_ProfilePage()
+
+        //Chat data
+
+        [FindsBy(How = How.XPath, Using = "/html/body/div/div/div/div[2]/div/div[2]/div/div/span/div[11]/div/div/span")]
+        private IWebElement Chatdata { get; set; }
+
+
+        public string Chat_ProfilePage()
         {
             //Populate the Excel Sheet
             GlobalDefinitions.ExcelLib.PopulateInCollection(Base.ExcelPath, "Chat");
 
-            var waitchat = new WebDriverWait(Global.GlobalDefinitions.driver, TimeSpan.FromSeconds(10));
+            var waitchat = new WebDriverWait(Global.GlobalDefinitions.driver, TimeSpan.FromSeconds(20));
             waitchat.Until(ExpectedConditions.ElementToBeClickable(ChatLink));
             ChatLink.Click();
 
@@ -41,13 +45,15 @@ namespace MarsAdvancedTask.Pages
             ChatTxtBox.SendKeys(chatmessage);
             SendBtn.Click();
 
+            return chatmessage;
         }   
         
-        public void Chat_Assertion()
+        public string Chat_Assertion()
         {
-            Thread.Sleep(2000);
+            GlobalDefinitions.driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(40);
+            //return Chatdata.Text;
             var chatdata= GlobalDefinitions.driver.FindElement(By.XPath("/html/body/div/div/div/div[2]/div/div[2]/div/div/span/div[11]/div/div/span"));
-            Assert.That(chatdata.Text == "Hello…..Welcome", "Chat message not saved");
+            return chatdata.Text;            
         }
     }
 }

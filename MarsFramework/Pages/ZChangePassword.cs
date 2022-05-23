@@ -78,8 +78,9 @@ namespace MarsAdvancedTask.Pages
 
             SavePasswordBtn.Click();
 
-            Thread.Sleep(3000);
-            var waitsignout = new WebDriverWait(Global.GlobalDefinitions.driver, TimeSpan.FromSeconds(20));
+            
+            GlobalDefinitions.driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(30);
+            var waitsignout = new WebDriverWait(Global.GlobalDefinitions.driver, TimeSpan.FromSeconds(30));
             waitsignout.Until(ExpectedConditions.ElementToBeClickable(SignOutBtn));
             SignOutBtn.Click();
         }

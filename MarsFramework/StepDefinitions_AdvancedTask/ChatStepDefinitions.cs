@@ -9,7 +9,7 @@ namespace MarsAdvancedTask
     
     public class ChatStepDefinitions
     {
-
+        private string chatmsg;
         [BeforeScenario("tag11")]
         
         public void Init()
@@ -30,13 +30,14 @@ namespace MarsAdvancedTask
         public void WhenIClickOnChatLinkOnHomePage()
         {
             chatObj = new Chat_Profile();
-            chatObj.Chat_ProfilePage();
+            chatmsg = chatObj.Chat_ProfilePage();
         }
 
         [Then(@"\[I should be able to send message]")]
         public void ThenIShouldBeAbleToSendMessage()
         {
-            chatObj.Chat_Assertion();
+            string chatmsge = chatObj.Chat_Assertion();
+            Assert.That(chatmsge == chatmsg, "Chat message not saved");
         }
     }
 }

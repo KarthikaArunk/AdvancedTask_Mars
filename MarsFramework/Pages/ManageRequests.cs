@@ -1,4 +1,5 @@
-﻿using NUnit.Framework;
+﻿using MarsAdvancedTask.Global;
+using NUnit.Framework;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Support.PageObjects;
 using OpenQA.Selenium.Support.UI;
@@ -47,25 +48,26 @@ namespace MarsAdvancedTask.Pages
 
         public void ReceivedRequests()
         {
-            Thread.Sleep(4000);
+            GlobalDefinitions.driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(40);
             var waitmanagerequestreceived = new WebDriverWait(Global.GlobalDefinitions.driver, TimeSpan.FromSeconds(50));
             waitmanagerequestreceived.Until(ExpectedConditions.ElementToBeClickable(ReceivedManageRequestsLink));
 
             ReceivedManageRequestsLink.Click();
-
-            Thread.Sleep(2000);
+                        
+            GlobalDefinitions.driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(30);
 
             var waitreceivedrequest = new WebDriverWait(Global.GlobalDefinitions.driver, TimeSpan.FromSeconds(10));
             waitreceivedrequest.Until(ExpectedConditions.ElementToBeClickable(ReceivedRequestsLink));
 
             ReceivedRequestsLink.Click();
-            Thread.Sleep(2000);            
+            
+            GlobalDefinitions.driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(20);
         }
 
         //Click on Sent Requests
         public void SentRequests()
-        {
-            Thread.Sleep(4000);
+        {            
+            GlobalDefinitions.driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(40);
             var waitmanagerequest = new WebDriverWait(Global.GlobalDefinitions.driver, TimeSpan.FromSeconds(15));
             waitmanagerequest.Until(ExpectedConditions.ElementToBeClickable(ManageRequestsLink));
 
@@ -76,51 +78,64 @@ namespace MarsAdvancedTask.Pages
 
             SentRequestsLink.Click();
 
-            Thread.Sleep(4000);                     
+           
+            GlobalDefinitions.driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(40);
         }
 
         //Assertion for Sent Requests
 
-        public void Assertion_SentRequests()
+        public bool Assertion_SentRequests()
         {
-            Thread.Sleep(2000);
+            //Populate the Excel Sheet
+            GlobalDefinitions.ExcelLib.PopulateInCollection(Base.ExcelPath, "SentRequest");
+
+            GlobalDefinitions.driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(20);
             var waitsentrequesttable = new WebDriverWait(Global.GlobalDefinitions.driver, TimeSpan.FromSeconds(20));
             waitsentrequesttable.Until(ExpectedConditions.ElementToBeClickable(SentRequestsTable));
+
+            var sentdatatosearch = GlobalDefinitions.ExcelLib.ReadData(2, "SentRequest");
 
             IList<IWebElement> rows = SentRequestsTable.FindElements(By.XPath("//tbody/tr"));
             var rowfound = false;
             for (int i = 1; i < rows.Count; i++)
             {
-                if (SentRequestsTable.FindElement(By.XPath($"//tr[{i}]/td[2]")).Text == "Selenium")
+                if (SentRequestsTable.FindElement(By.XPath($"//tr[{i}]/td[2]")).Text == sentdatatosearch)
                 {
 
                     rowfound = true;
                     break;
                 }
             }
-            Assert.IsTrue(rowfound, "Sent Requests are saved successfully");
+
+            return rowfound;
         }
 
         //Assertion for Received Requests
 
-        public void Assertion_ReceivedRequests()
+        public bool Assertion_ReceivedRequests()
         {
-            Thread.Sleep(2000);
+            //Populate the Excel Sheet
+            GlobalDefinitions.ExcelLib.PopulateInCollection(Base.ExcelPath, "ReceivedRequest");
+
+           GlobalDefinitions.driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(20);
            var waitsentrequesttable = new WebDriverWait(Global.GlobalDefinitions.driver, TimeSpan.FromSeconds(20));
            waitsentrequesttable.Until(ExpectedConditions.ElementToBeClickable(ReceivedRequestsTable));
 
-           IList<IWebElement> rows = ReceivedRequestsTable.FindElements(By.XPath("//tbody/tr"));
+           var receiveddatatosearch = GlobalDefinitions.ExcelLib.ReadData(2, "ReceivedRequest");
+
+            IList<IWebElement> rows = ReceivedRequestsTable.FindElements(By.XPath("//tbody/tr"));
            var rowfound = false;
            for (int i = 1; i<rows.Count; i++)
            {
-              if (ReceivedRequestsTable.FindElement(By.XPath($"//tr[{i}]/td[2]")).Text == "SQL")
+              if (ReceivedRequestsTable.FindElement(By.XPath($"//tr[{i}]/td[2]")).Text == receiveddatatosearch)
                 {
 
                    rowfound = true;
                     break;
                 }
-           }        
-             Assert.IsTrue(rowfound, "Received Requests are saved successfully");
+           }
+
+            return rowfound;
         }
     }
 }
