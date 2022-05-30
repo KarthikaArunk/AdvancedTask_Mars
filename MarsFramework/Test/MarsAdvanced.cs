@@ -189,7 +189,6 @@ namespace MarsAdvancedTask
                 notification.Notifications_SkillSwap();
                 var loadmorenotif = notification.LoadMore_Notification();
                 notification.ShowLess_Notification();
-                //notification.Notification_Assertion(loadmorenotif);
                 var notif =notification.Notification_Assertion();
                 Assert.That(notif == loadmorenotif, "Notifications are saved");
             }
