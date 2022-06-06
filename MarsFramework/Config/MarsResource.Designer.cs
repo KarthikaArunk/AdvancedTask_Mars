@@ -70,7 +70,7 @@ namespace MarsAdvancedTask.Config {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to C:\Users\karth\MVPStudio-MarsProject\Internship-Mars\Assignments\Assignment-3\TestDataShareSkill.xlsx.
+        ///   Looks up a localized string similar to C:\Users\karth\MVPStudio-MarsProject\Internship-Mars\Assignments\Assignment-3\MarsFramework\ExcelData\TestDataShareSkill.xlsx.
         /// </summary>
         internal static string ExcelPath {
             get {

@@ -11,14 +11,17 @@ namespace MarsAdvancedTask
         [Category("Sprint1")]
         class User : Global.Base
         {
+                        
             //Description
 
             [Test, Order(1)]
             public void Test_Description()
-            {
-                var descriptiontxt = new DescriptionProfile();                
-                var descripdata = descriptiontxt.Description_Add();
-                var getdescrip = descriptiontxt.GetDescription();
+            {                
+                DescriptionProfile DescriptionObj = new DescriptionProfile();
+
+                var descripdata = DescriptionObj.Description_Add();
+                var getdescrip = DescriptionObj.GetDescription();
+
                 Assert.That(descripdata == getdescrip, "Description doesn't match");
             }
 
@@ -27,18 +30,16 @@ namespace MarsAdvancedTask
             [Test, Order(2)]
             
             public void Test_AvailabilityHoursEarnTarget()
-            {
-                var availability = new AvailabilityHoursEarnTarget();
-                var hours = new AvailabilityHoursEarnTarget();
-                var earntarget = new AvailabilityHoursEarnTarget();
+            {                
+                AvailabilityHoursEarnTarget AvailObj = new AvailabilityHoursEarnTarget();
 
-                var availdata= availability.Availability_Status();
-                var hoursdata=  hours.Hours_Status();
-                var earndata = earntarget.EarnTaregt_Status();
+                var availdata = AvailObj.Availability_Status();
+                var hoursdata = AvailObj.Hours_Status();
+                var earndata = AvailObj.EarnTaregt_Status();
 
-                var getavail = availability.GetNewAvailabiltyData();
-                var gethours = hours.GetNewHoursData();
-                var getearn = earntarget.GetNewEarnTargetData();
+                var getavail = AvailObj.GetNewAvailabiltyData();
+                var gethours = AvailObj.GetNewHoursData();
+                var getearn = AvailObj.GetNewEarnTargetData();
 
                 Assert.That(availdata == getavail, "Availability doesn't match");
                 Assert.That(hoursdata == gethours, "Hours doesn't match");
@@ -52,11 +53,12 @@ namespace MarsAdvancedTask
             [TestCase(3)]
             [TestCase(4)]
             public void Test_AddLanguage(int excelrow)
-            {
-                var newlanguage = new LanguageProfile();
-                var languagedata = newlanguage.NewLanguage(excelrow);
-                var languagefound = newlanguage.LanguageDetails(languagedata);
-                
+            {                
+                LanguageProfile LanguageObj = new LanguageProfile();
+
+                var languagedata = LanguageObj.NewLanguage(excelrow);
+                var languagefound = LanguageObj.LanguageDetails(languagedata);
+
                 //Assertion
                 Assert.IsTrue(languagefound, $"{languagedata} added successfully");
             }
@@ -68,10 +70,11 @@ namespace MarsAdvancedTask
             [TestCase(3)]
             [TestCase(4)]
             public void Test_AddSkill(int excelrow)
-            {
-                var newskill = new SkillProfile();
-                var skilldata= newskill.NewSkill(excelrow);
-                var skillfound= newskill.GetSkillDetails(skilldata);
+            {                
+                SkillProfile SkillObj = new SkillProfile();
+
+                var skilldata = SkillObj.NewSkill(excelrow);
+                var skillfound = SkillObj.GetSkillDetails(skilldata);
 
                 //Assertion
                 Assert.IsTrue(skillfound, $"{skilldata} added successfully");
@@ -83,16 +86,15 @@ namespace MarsAdvancedTask
             
             
             public void Test_AddEducation()
-            {
-                var neweducation = new EducationProfile();
-                
-                var education = neweducation.EducationDetails(); ;
-                
-                var countrydata = neweducation.GetCountrydata();
-                var universitydata = neweducation.GetUniversitydata();
-                var titledata = neweducation.Gettitledata();
-                var degreedata = neweducation.Getdegreedata();
-                var yeardata = neweducation.Getyeardata();
+            {                
+                EducationProfile EducationObj = new EducationProfile();
+
+                var education = EducationObj.EducationDetails();
+                var countrydata = EducationObj.GetCountrydata();
+                var universitydata = EducationObj.GetUniversitydata();
+                var titledata = EducationObj.Gettitledata();
+                var degreedata = EducationObj.Getdegreedata();
+                var yeardata = EducationObj.Getyeardata();
 
                 Assert.That(education.country==countrydata,"Country doesn't match");
                 Assert.That(education.university == universitydata, "University doesn't match");
@@ -107,10 +109,12 @@ namespace MarsAdvancedTask
             
             
             public void Test_AddCertification()
-            {
-                var newcertification = new CertificationProfile();
-                var certif= newcertification.NewCertification();
-                var certificdata = newcertification.GetCertificate();
+            {                
+                CertificationProfile CertificationObj = new CertificationProfile();
+
+                var certif = CertificationObj.NewCertification();
+                var certificdata = CertificationObj.GetCertificate();
+
                 Assert.That(certif == certificdata, "Certificate doesn't match");
             }
 
@@ -122,10 +126,11 @@ namespace MarsAdvancedTask
             [TestCase(4)]
 
             public void Test_Share_Skill(int excelrow)
-            {
-                var shareskill = new ShareSkill();
-                var skilltitle = shareskill.EnterShareSkill(excelrow);
-                var skillfound = shareskill.ShareSkill_Assertion(skilltitle);
+            {                
+                ShareSkill ShareSkillObj = new ShareSkill();
+
+                var skilltitle = ShareSkillObj.EnterShareSkill(excelrow);
+                var skillfound = ShareSkillObj.ShareSkill_Assertion(skilltitle);
 
                 //Assertion
                 Assert.IsTrue(skillfound, $"{skilltitle} added successfully");
@@ -136,10 +141,11 @@ namespace MarsAdvancedTask
             [Test, Order(8)]
             
             public void Test_AddingNewSkillFailed()
-            {
-                var addnewskillfailed = new ShareSkill();
-                var newskillfail = addnewskillfailed.AddingNewSkillFailed();
-                var categorydata = addnewskillfailed.NewSkillFailed_Assertion();
+            {                
+                ShareSkill ShareSkillObj = new ShareSkill();
+
+                var newskillfail = ShareSkillObj.AddingNewSkillFailed();
+                var categorydata = ShareSkillObj.NewSkillFailed_Assertion();
 
                 //Assertion
 
@@ -152,13 +158,14 @@ namespace MarsAdvancedTask
 
             public void Test_ManageListings()
             {
-                var managelisting = new ManageListings();
-                managelisting.ViewListing();
-                var editdescrip =managelisting.EditListing();
-                var editassert = managelisting.Edit_Assertion(editdescrip);
+                
+                ManageListings ManageListingObj = new ManageListings();
 
-                var deletedata= managelisting.DeleteListings();
-                var deleteassert = managelisting.Delete_Assertion(deletedata);
+                ManageListingObj.ViewListing();
+                var editdescrip = ManageListingObj.EditListing();
+                var editassert = ManageListingObj.Edit_Assertion(editdescrip);
+                var deletedata = ManageListingObj.DeleteListings();
+                var deleteassert = ManageListingObj.Delete_Assertion(deletedata);
 
                 //Assertion
 
@@ -171,11 +178,13 @@ namespace MarsAdvancedTask
             [Test, Order(10)]
 
             public void Test_ManageRequests()
-            {
-                var managereqObj= new ManageRequests();
-                managereqObj.SentRequests();
-                managereqObj.ReceivedRequests();
-                var titlereceived = managereqObj.Assertion_ReceivedRequests();
+            {                
+                ManageRequests ManageRequestsObj = new ManageRequests();
+
+                ManageRequestsObj.SentRequests();
+                ManageRequestsObj.ReceivedRequests();
+
+                var titlereceived = ManageRequestsObj.Assertion_ReceivedRequests();
 
                 Assert.IsTrue(titlereceived, "Received Requests are saved successfully");
             }
@@ -185,11 +194,16 @@ namespace MarsAdvancedTask
             [Test, Order(11)]
             public void Test_Notifications()
             {
-                var notification = new Notifications_Skill();
-                notification.Notifications_SkillSwap();
-                var loadmorenotif = notification.LoadMore_Notification();
-                notification.ShowLess_Notification();
-                var notif =notification.Notification_Assertion();
+                
+                Notifications_Skill NotificationsObj = new Notifications_Skill();
+
+                NotificationsObj.Notifications_SkillSwap();
+
+                var loadmorenotif = NotificationsObj.LoadMore_Notification();
+
+                NotificationsObj.ShowLess_Notification();
+
+                var notif = NotificationsObj.Notification_Assertion();
                 Assert.That(notif == loadmorenotif, "Notifications are saved");
             }
 
@@ -198,9 +212,11 @@ namespace MarsAdvancedTask
             [Test, Order(12)]
             public void Test_Chat()
             {
-                var chatprofile = new Chat_Profile();
-                var chatmessage = chatprofile.Chat_ProfilePage();
-                var chatmsg = chatprofile.Chat_Assertion();
+                
+                Chat_Profile ChatObj = new Chat_Profile();
+
+                var chatmessage = ChatObj.Chat_ProfilePage();
+                var chatmsg = ChatObj.Chat_Assertion();
 
                 //Assertion
 
@@ -212,11 +228,12 @@ namespace MarsAdvancedTask
             [Test, Order(13)]
             public void Test_SearchSkills()
             {
-                var searchskills = new SearchSkills();
-                searchskills.SearchSkillsBy_AllCategories();
-                searchskills.SearchBy_Filter();
-                searchskills.SearchBy_Skill();
-                searchskills.SearchSkill_Assertion();
+                SearchSkills SearchSkillsObj = new SearchSkills();
+
+                SearchSkillsObj.SearchSkillsBy_AllCategories();
+                SearchSkillsObj.SearchBy_Filter();
+                SearchSkillsObj.SearchBy_Skill();
+                SearchSkillsObj.SearchSkill_Assertion();
             }
 
             //ChangePassword
@@ -224,8 +241,10 @@ namespace MarsAdvancedTask
             [Test, Order(14)]
             public void Test_ChangePassword()
             {
-                var changepassw = new ZChangePassword();
-                changepassw.Change_Password();
+                
+                ZChangePassword ChangePasswordObj = new ZChangePassword();
+
+                ChangePasswordObj.Change_Password();
             }
         }
     }
