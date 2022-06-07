@@ -1,0 +1,255 @@
+{
+	"info": {
+		"_postman_id": "5cc34b80-a6a7-4f83-9b6e-8d8a2fc556c6",
+		"name": "reqres.in_AdvancedTask_API_Testing",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "GET all users data",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Check support url\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"\r",
+							"    pm.expect(jsonData.support.url).to.eql(\"https://reqres.in/#support-heading\");\r",
+							"   \r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseURL}}/api/users",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"api",
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get single user data",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"//Assertion1\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"//Assertion2\r",
+							"\r",
+							"pm.test(\"Check key-value pair in response\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"  \r",
+							"    //Id\r",
+							"    pm.expect(jsonData.data.id).to.eql(2);\r",
+							"    \r",
+							"    //First_name\r",
+							"    pm.expect(jsonData.data.first_name).to.eql(\"Janet\");\r",
+							"\r",
+							"    //Last_name\r",
+							"    pm.expect(jsonData.data.last_name).to.eql(\"Weaver\");\r",
+							"\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"data\": {\r\n        \"id\": 2,\r\n        \"email\": \"janet.weaver@reqres.in\",\r\n        \"first_name\": \"Janet\",\r\n        \"last_name\": \"Weaver\",\r\n        \"avatar\": \"https://reqres.in/img/faces/2-image.jpg\"\r\n    },\r\n    \"support\": {\r\n        \"url\": \"https://reqres.in/#support-heading\",\r\n        \"text\": \"To keep ReqRes free, contributions towards server costs are appreciated!\"\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}/api/users/2",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"api",
+						"users",
+						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create new user",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"//Assertion1\r",
+							"pm.test(\"Status code is 201\", function () {\r",
+							"    pm.response.to.have.status(201);\r",
+							"});\r",
+							"//Assertion2: Response-Value Check\r",
+							"pm.test(\"Check Key-Value pairs in the response\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"  //Check name\r",
+							"    pm.expect(jsonData.name).to.eql(\"karth\");\r",
+							"  //Check Job\r",
+							"     pm.expect(jsonData.job).to.eql(\"testing\");\r",
+							"\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"karth\",\r\n    \"job\": \"testing\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}/api/users",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"api",
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update user data",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"//Assertion1\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"\r",
+							"//Assertion2\r",
+							"pm.test(\"Check Key-Value pairs in the response\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"  //Check name\r",
+							"    pm.expect(jsonData.name).to.eql(\"karth\");\r",
+							"  //Check Job\r",
+							"     pm.expect(jsonData.job).to.eql(\"testing_analyst\");\r",
+							"\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"karth\",\r\n    \"job\": \"testing_analyst\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}/api/api/{{EmployeeID}}",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"api",
+						"api",
+						"{{EmployeeID}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete User Data",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 204\", function () {\r",
+							"    pm.response.to.have.status(204);\r",
+							"});\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}/api/users/2",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"api",
+						"users",
+						"2"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

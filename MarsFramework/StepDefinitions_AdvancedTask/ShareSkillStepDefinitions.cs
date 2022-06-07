@@ -2,7 +2,7 @@ using MarsAdvancedTask.Pages;
 using TechTalk.SpecFlow;
 using NUnit.Framework;
 using MarsAdvancedTask.Global;
-using OpenQA.Selenium.Chrome;
+
 
 namespace MarsAdvancedTask
 {
